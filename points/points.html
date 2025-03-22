@@ -28,28 +28,28 @@
     </header>
     <!-- Основная шапка с навигацией -->
     <header class="container mb-4">
-      <div class="d-flex align-items-center">
-        <h1 class="header-text mb-0 lang-headerText">
-          Фотографии в рисунок точками
-        </h1>
-        <div class="ml-auto">
-          <div class="btn-group">
-            <select
-              id="langSwitcher"
-              class="form-control lang-langSwitcher"
-              style="width: auto; margin-right: 10px"
-            >
-              <option value="en">English</option>
-              <option value="ru" selected>Русский</option>
-              <option value="de">Deutsch</option>
-              <option value="it">Italiano</option>
-              <option value="tr">Türkçe</option>
-              <option value="es">Español</option>
-              <option value="pl">Polski</option>
-              <option value="fr">Français</option>
-              <option value="uk">Українська</option>
-            </select>
+      <div class="d-flex align-items-center" id="headerContent">
+        <div id="headerTitle">
+          <h1 class="header-text mb-0 lang-headerText">Веб-инструменты</h1>
+        </div>
+        <div id="headerControls" class="ml-auto d-flex align-items-center">
+          <select
+            id="langSwitcher"
+            class="form-control lang-langSwitcher"
+            style="width: auto; margin-right: 10px"
+          >
+            <option value="en">English</option>
+            <option value="ru" selected>Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="tr">Türkçe</option>
+            <option value="es">Español</option>
+            <option value="pl">Polski</option>
+            <option value="fr">Français</option>
+            <option value="uk">Українська</option>
+          </select>
 
+          <div class="btn-group">
             <button
               type="button"
               class="btn btn-danger dropdown-toggle btn-group-col lang-action"
@@ -64,7 +64,6 @@
                 >Главная</a
               >
               <div class="dropdown-divider"></div>
-              <!-- <a class="dropdown-item" href="/palette/palette.html">Генератор цветовых палитр по фотографии</a> -->
               <a
                 class="dropdown-item lang-colorGenerator"
                 href="../color/color.html"
@@ -85,11 +84,6 @@
                 href="../clip-path/clip-path.html"
                 >Конструктор Clip-Path</a
               >
-              <!--   <a
-                class="dropdown-item lang-fileConverter"
-                href="/file-converter/file-converter.html"
-                >Онлайн Конвертер Файлов</a
-              > -->
               <a
                 class="dropdown-item lang-base64Converter"
                 href="../base64/base64.html"
@@ -126,6 +120,7 @@
               >
             </div>
           </div>
+
           <button
             id="themeToggle"
             class="btn btn-outline-primary ml-2 lang-toggleTheme"
@@ -135,7 +130,6 @@
         </div>
       </div>
     </header>
-
     <!-- Основной контент -->
     <main class="container">
       <div class="row">

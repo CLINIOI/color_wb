@@ -347,3 +347,25 @@ footer {
   color: var(--text-color);
   background-color: var(--bg-color) !important;
 }
+#headerContent {
+  flex-direction: row;
+  align-items: center;
+}
+
+/* При ширине 675px и меньше – два ряда:
+   первый ряд: заголовок,
+   второй ряд: элементы управления, выстроенные в один ряд */
+@media (max-width: 675px) {
+  #headerContent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #headerTitle {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  #headerControls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

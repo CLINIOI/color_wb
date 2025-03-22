@@ -37,10 +37,11 @@
   <body>
     <!-- Header -->
     <header class="container mb-4">
-      <div class="d-flex align-items-center">
-        <h1 class="header-text mb-0 lang-headerText">Веб-инструменты</h1>
-        <div class="ml-auto d-flex align-items-center">
-          <!-- Переключатель языка (при необходимости) -->
+      <div class="d-flex align-items-center" id="headerContent">
+        <div id="headerTitle">
+          <h1 class="header-text mb-0 lang-headerText">Веб-инструменты</h1>
+        </div>
+        <div id="headerControls" class="ml-auto d-flex align-items-center">
           <select
             id="langSwitcher"
             class="form-control lang-langSwitcher"
@@ -72,8 +73,6 @@
                 >Главная</a
               >
               <div class="dropdown-divider"></div>
-              <!-- <a class="dropdown-item" href="/palette/palette.html">
-                  Генератор цветовых палитр по фотографии</a> -->
               <a
                 class="dropdown-item lang-colorGenerator"
                 href="../color/color.html"
@@ -94,11 +93,6 @@
                 href="../clip-path/clip-path.html"
                 >Конструктор Clip-Path</a
               >
-              <!--  <a
-                class="dropdown-item lang-fileConverter"
-                href="/file-converter/file-converter.html"
-                >Онлайн Конвертер Файлов</a
-              > -->
               <a
                 class="dropdown-item lang-base64Converter"
                 href="../base64/base64.html"
@@ -135,6 +129,7 @@
               >
             </div>
           </div>
+
           <button
             id="themeToggle"
             class="btn btn-outline-primary ml-2 lang-toggleTheme"

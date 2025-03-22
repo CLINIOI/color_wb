@@ -15,26 +15,28 @@
   <body>
     <!-- Навигационная панель с переключателем темы -->
     <header class="container mb-4">
-      <div class="d-flex align-items-center">
-        <h1 class="header-text mb-0 lang-headerText">Генератор ASCII-арта</h1>
-        <div class="ml-auto">
-          <div class="btn-group">
-            <select
-              id="langSwitcher"
-              class="form-control lang-langSwitcher"
-              style="width: auto; margin-right: 10px"
-            >
-              <option value="en">English</option>
-              <option value="ru" selected>Русский</option>
-              <option value="de">Deutsch</option>
-              <option value="it">Italiano</option>
-              <option value="tr">Türkçe</option>
-              <option value="es">Español</option>
-              <option value="pl">Polski</option>
-              <option value="fr">Français</option>
-              <option value="uk">Українська</option>
-            </select>
+      <div class="d-flex align-items-center" id="headerContent">
+        <div id="headerTitle">
+          <h1 class="header-text mb-0 lang-headerText">Веб-инструменты</h1>
+        </div>
+        <div id="headerControls" class="ml-auto d-flex align-items-center">
+          <select
+            id="langSwitcher"
+            class="form-control lang-langSwitcher"
+            style="width: auto; margin-right: 10px"
+          >
+            <option value="en">English</option>
+            <option value="ru" selected>Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="tr">Türkçe</option>
+            <option value="es">Español</option>
+            <option value="pl">Polski</option>
+            <option value="fr">Français</option>
+            <option value="uk">Українська</option>
+          </select>
 
+          <div class="btn-group">
             <button
               type="button"
               class="btn btn-danger dropdown-toggle btn-group-col lang-action"
@@ -50,77 +52,62 @@
               >
               <div class="dropdown-divider"></div>
               <a
-                class="dropdown-item lang-shadeGenerator"
+                class="dropdown-item lang-colorGenerator"
                 href="../color/color.html"
+                >Генератор оттенков</a
               >
-                Генератор оттенков
-              </a>
               <a
                 class="dropdown-item lang-cssGradientGenerator"
                 href="../gradient/gradient.html"
+                >Генератор CSS-градиентов</a
               >
-                Генератор CSS-градиентов
-              </a>
               <a
-                class="dropdown-item lang-cssFilterConstructor"
+                class="dropdown-item lang-filterConstructor"
                 href="../filter/filter.html"
+                >Конструктор CSS-фильтров</a
               >
-                Конструктор CSS-фильтров
-              </a>
               <a
                 class="dropdown-item lang-clipPathConstructor"
                 href="../clip-path/clip-path.html"
+                >Конструктор Clip-Path</a
               >
-                Конструктор Clip-Path
-              </a>
-              <a
-                class="dropdown-item lang-fileConverter"
-                href="../file-converter/file-converter.html"
-              >
-                Онлайн Конвертер Файлов
-              </a>
               <a
                 class="dropdown-item lang-base64Converter"
                 href="../base64/base64.html"
+                >Конвертер изображений в Base64</a
               >
-                Конвертер изображений в Base64
-              </a>
               <a
-                class="dropdown-item lang-bicolorStencilConverter"
+                class="dropdown-item lang-stencilConverter"
                 href="../color-2-stencil/color-2-stencil.html"
+                >Конвертер в двухцветный трафарет</a
               >
-                Конвертер в двухцветный трафарет
-              </a>
               <a
                 class="dropdown-item lang-pointConverter"
                 href="../points/points.html"
+                >Конвертер фотографии в рисунок точками</a
               >
-                Конвертер фотографии в рисунок точками
-              </a>
               <a
                 class="dropdown-item lang-qrCodeGenerator"
                 href="../QR‑Code/QR‑Code.html"
+                >Генератор QR-кода</a
               >
-                Генератор QR-кода
-              </a>
               <a
                 class="dropdown-item lang-asciiGenerator"
                 href="../ASCII/ASCII.html"
+                >Генератор ASCII-арта</a
               >
-                Генератор ASCII-арта
-              </a>
               <a
                 class="dropdown-item lang-backgroundRemoval"
                 href="../remove-bg/remove-bg.html"
+                >Выделение объектов из фона</a
               >
-                Выделение объектов из фона
-              </a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item lang-separatedLink" href="#"
                 >Отделенная ссылка</a
               >
             </div>
           </div>
+
           <button
             id="themeToggle"
             class="btn btn-outline-primary ml-2 lang-toggleTheme"
@@ -130,7 +117,6 @@
         </div>
       </div>
     </header>
-
     <div class="container my-4">
       <!-- 1. Загрузка изображения -->
       <div class="section upload-section mb-4 p-4">

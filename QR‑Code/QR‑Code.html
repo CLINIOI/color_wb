@@ -16,10 +16,11 @@
   <body>
     <!-- Шапка с переключателем темы и языка -->
     <header class="container mb-4">
-      <div class="d-flex align-items-center">
-        <h1 class="header-text mb-0 lang-headerText">Генератор QR‑кода</h1>
-        <div class="ml-auto d-flex align-items-center">
-          <!-- Переключатель языка -->
+      <div class="d-flex align-items-center" id="headerContent">
+        <div id="headerTitle">
+          <h1 class="header-text mb-0 lang-headerText">Веб-инструменты</h1>
+        </div>
+        <div id="headerControls" class="ml-auto d-flex align-items-center">
           <select
             id="langSwitcher"
             class="form-control lang-langSwitcher"
@@ -51,7 +52,6 @@
                 >Главная</a
               >
               <div class="dropdown-divider"></div>
-              <!-- <a class="dropdown-item lang-palette" href="/palette/palette.html">Генератор цветовых палитр по фотографии</a> -->
               <a
                 class="dropdown-item lang-colorGenerator"
                 href="../color/color.html"
@@ -60,23 +60,18 @@
               <a
                 class="dropdown-item lang-cssGradientGenerator"
                 href="../gradient/gradient.html"
-                >Генератор CSS‑градиентов</a
+                >Генератор CSS-градиентов</a
               >
               <a
                 class="dropdown-item lang-filterConstructor"
                 href="../filter/filter.html"
-                >Конструктор CSS‑фильтров</a
+                >Конструктор CSS-фильтров</a
               >
               <a
                 class="dropdown-item lang-clipPathConstructor"
                 href="../clip-path/clip-path.html"
-                >Конструктор Clip‑Path</a
+                >Конструктор Clip-Path</a
               >
-              <!--   <a
-                class="dropdown-item lang-fileConverter"
-                href="/file-converter/file-converter.html"
-                >Онлайн Конвертер Файлов</a
-              > -->
               <a
                 class="dropdown-item lang-base64Converter"
                 href="../base64/base64.html"
@@ -95,12 +90,12 @@
               <a
                 class="dropdown-item lang-qrCodeGenerator"
                 href="../QR‑Code/QR‑Code.html"
-                >Генератор QR‑кода</a
+                >Генератор QR-кода</a
               >
               <a
                 class="dropdown-item lang-asciiGenerator"
                 href="../ASCII/ASCII.html"
-                >Генератор ASCII‑арта</a
+                >Генератор ASCII-арта</a
               >
               <a
                 class="dropdown-item lang-backgroundRemoval"
@@ -113,6 +108,7 @@
               >
             </div>
           </div>
+
           <button
             id="themeToggle"
             class="btn btn-outline-primary ml-2 lang-toggleTheme"
@@ -122,7 +118,6 @@
         </div>
       </div>
     </header>
-
     <div class="my-4">
       <!-- Форма: теперь разбита на две колонки -->
       <form id="qrForm" class="mb-4">

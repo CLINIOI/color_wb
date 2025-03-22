@@ -15,28 +15,28 @@
   <body class="light-theme">
     <!-- Header -->
     <header class="container mb-4">
-      <div class="d-flex align-items-center">
-        <h1 class="header-text mb-0 lang-headerText">
-          Конструктор CSS‑фильтров
-        </h1>
-        <div class="ml-auto">
-          <div class="btn-group">
-            <select
-              id="langSwitcher"
-              class="form-control lang-langSwitcher"
-              style="width: auto; margin-right: 10px"
-            >
-              <option value="en">English</option>
-              <option value="ru" selected>Русский</option>
-              <option value="de">Deutsch</option>
-              <option value="it">Italiano</option>
-              <option value="tr">Türkçe</option>
-              <option value="es">Español</option>
-              <option value="pl">Polski</option>
-              <option value="fr">Français</option>
-              <option value="uk">Українська</option>
-            </select>
+      <div class="d-flex align-items-center" id="headerContent">
+        <div id="headerTitle">
+          <h1 class="header-text mb-0 lang-headerText">Веб-инструменты</h1>
+        </div>
+        <div id="headerControls" class="ml-auto d-flex align-items-center">
+          <select
+            id="langSwitcher"
+            class="form-control lang-langSwitcher"
+            style="width: auto; margin-right: 10px"
+          >
+            <option value="en">English</option>
+            <option value="ru" selected>Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="tr">Türkçe</option>
+            <option value="es">Español</option>
+            <option value="pl">Polski</option>
+            <option value="fr">Français</option>
+            <option value="uk">Українська</option>
+          </select>
 
+          <div class="btn-group">
             <button
               type="button"
               class="btn btn-danger dropdown-toggle btn-group-col lang-action"
@@ -51,7 +51,6 @@
                 >Главная</a
               >
               <div class="dropdown-divider"></div>
-              <!-- <a class="dropdown-item" href="/palette/palette.html">Генератор цветовых палитр по фотографии</a> -->
               <a
                 class="dropdown-item lang-colorGenerator"
                 href="../color/color.html"
@@ -60,23 +59,18 @@
               <a
                 class="dropdown-item lang-cssGradientGenerator"
                 href="../gradient/gradient.html"
-                >Генератор CSS‑градиентов</a
+                >Генератор CSS-градиентов</a
               >
               <a
                 class="dropdown-item lang-filterConstructor"
                 href="../filter/filter.html"
-                >Конструктор CSS‑фильтров</a
+                >Конструктор CSS-фильтров</a
               >
               <a
                 class="dropdown-item lang-clipPathConstructor"
                 href="../clip-path/clip-path.html"
-                >Конструктор Clip‑Path</a
+                >Конструктор Clip-Path</a
               >
-              <!--   <a
-                class="dropdown-item lang-fileConverter"
-                href="/file-converter/file-converter.html"
-                >Онлайн Конвертер Файлов</a
-              > -->
               <a
                 class="dropdown-item lang-base64Converter"
                 href="../base64/base64.html"
@@ -95,12 +89,12 @@
               <a
                 class="dropdown-item lang-qrCodeGenerator"
                 href="../QR‑Code/QR‑Code.html"
-                >Генератор QR‑кода</a
+                >Генератор QR-кода</a
               >
               <a
                 class="dropdown-item lang-asciiGenerator"
                 href="../ASCII/ASCII.html"
-                >Генератор ASCII‑арта</a
+                >Генератор ASCII-арта</a
               >
               <a
                 class="dropdown-item lang-backgroundRemoval"
@@ -113,6 +107,7 @@
               >
             </div>
           </div>
+
           <button
             id="themeToggle"
             class="btn btn-outline-primary ml-2 lang-toggleTheme"
