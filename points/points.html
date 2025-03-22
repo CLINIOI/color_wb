@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Класс для перевода заголовка страницы -->
+    <title class="lang-title">Конвертер фотографии в рисунок точками</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Пользовательский CSS -->
+    <link rel="stylesheet" href="points.css" />
+  </head>
+  <body>
+    <!-- Шапка (без действия) -->
+    <header class="mb-4 no-act">
+      <div class="container d-flex justify-content-between align-items-center">
+        <h1 class="mb-0 lang-noActTitle">
+          Конвертер фотографии в рисунок точками
+        </h1>
+        <!-- Кнопка переключения темы -->
+        <button class="btn btn-outline-primary lang-toggleThemeNoAct">
+          Сменить тему
+        </button>
+      </div>
+    </header>
+    <!-- Основная шапка с навигацией -->
+    <header class="container mb-4">
+      <div class="d-flex align-items-center">
+        <h1 class="header-text mb-0 lang-headerText">
+          Фотографии в рисунок точками
+        </h1>
+        <div class="ml-auto">
+          <div class="btn-group">
+            <select
+              id="langSwitcher"
+              class="form-control lang-langSwitcher"
+              style="width: auto; margin-right: 10px"
+            >
+              <option value="en">English</option>
+              <option value="ru" selected>Русский</option>
+              <option value="de">Deutsch</option>
+              <option value="it">Italiano</option>
+              <option value="tr">Türkçe</option>
+              <option value="es">Español</option>
+              <option value="pl">Polski</option>
+              <option value="fr">Français</option>
+              <option value="uk">Українська</option>
+            </select>
+
+            <button
+              type="button"
+              class="btn btn-danger dropdown-toggle btn-group-col lang-action"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Действие
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item lang-home" href="/index/index.html"
+                >Главная</a
+              >
+              <div class="dropdown-divider"></div>
+              <!-- <a class="dropdown-item" href="/palette/palette.html">Генератор цветовых палитр по фотографии</a> -->
+              <a
+                class="dropdown-item lang-colorGenerator"
+                href="/color/color.html"
+                >Генератор оттенков</a
+              >
+              <a
+                class="dropdown-item lang-cssGradientGenerator"
+                href="/gradient/gradient.html"
+                >Генератор CSS-градиентов</a
+              >
+              <a
+                class="dropdown-item lang-filterConstructor"
+                href="/filter/filter.html"
+                >Конструктор CSS-фильтров</a
+              >
+              <a
+                class="dropdown-item lang-clipPathConstructor"
+                href="/clip-path/clip-path.html"
+                >Конструктор Clip-Path</a
+              >
+              <!--   <a
+                class="dropdown-item lang-fileConverter"
+                href="/file-converter/file-converter.html"
+                >Онлайн Конвертер Файлов</a
+              > -->
+              <a
+                class="dropdown-item lang-base64Converter"
+                href="/base64/base64.html"
+                >Конвертер изображений в Base64</a
+              >
+              <a
+                class="dropdown-item lang-stencilConverter"
+                href="/color-2-stencil/color-2-stencil.html"
+                >Конвертер в двухцветный трафарет</a
+              >
+              <a
+                class="dropdown-item lang-pointConverter"
+                href="/points/points.html"
+                >Конвертер фотографии в рисунок точками</a
+              >
+              <a
+                class="dropdown-item lang-qrCodeGenerator"
+                href="/QR‑Code/QR‑Code.html"
+                >Генератор QR-кода</a
+              >
+              <a
+                class="dropdown-item lang-asciiGenerator"
+                href="/ASCII/ASCII.html"
+                >Генератор ASCII-арта</a
+              >
+              <a
+                class="dropdown-item lang-backgroundRemoval"
+                href="/remove-bg/remove-bg.html"
+                >Выделение объектов из фона</a
+              >
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item lang-separatedLink" href="#"
+                >Отделенная ссылка</a
+              >
+            </div>
+          </div>
+          <button
+            id="themeToggle"
+            class="btn btn-outline-primary ml-2 lang-toggleTheme"
+          >
+            Сменить тему
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="container">
+      <div class="row">
+        <!-- Левая панель управления -->
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <!-- Загрузка изображения -->
+              <div class="mb-3">
+                <button id="faqBtn" class="btn mb-2 btn-info lang-faqButton">
+                  FAQ
+                </button>
+                <label
+                  for="uploadImage"
+                  class="font-weight-bold lang-uploadPhotoLabel"
+                  >Загрузить фото:</label
+                >
+                <input
+                  type="file"
+                  id="uploadImage"
+                  class="form-control lang-uploadPhotoInput"
+                  accept="image/*"
+                />
+              </div>
+              <!-- Настройки изображения -->
+              <div class="mb-3">
+                <label
+                  for="widthRange"
+                  class="font-weight-bold lang-widthLabel"
+                >
+                  Ширина изображения:
+                  <span id="widthValue" class="lang-widthValue">1000</span> px
+                </label>
+                <input
+                  type="range"
+                  id="widthRange"
+                  class="form-control-range lang-widthRange"
+                  min="200"
+                  max="2000"
+                  value="1000"
+                />
+              </div>
+              <div class="mb-3">
+                <label
+                  for="dotRadiusRange"
+                  class="font-weight-bold lang-dotRadiusLabel"
+                >
+                  Радиус точек:
+                  <span id="dotRadiusValue" class="lang-dotRadiusValue">5</span>
+                  px
+                </label>
+                <input
+                  type="range"
+                  id="dotRadiusRange"
+                  class="form-control-range lang-dotRadiusRange"
+                  min="2"
+                  max="20"
+                  value="5"
+                />
+              </div>
+              <div class="mb-3">
+                <label
+                  for="brightnessRange"
+                  class="font-weight-bold lang-brightnessLabel"
+                >
+                  Яркость:
+                  <span id="brightnessValue" class="lang-brightnessValue"
+                    >1</span
+                  >
+                </label>
+                <input
+                  type="range"
+                  id="brightnessRange"
+                  class="form-control-range lang-brightnessRange"
+                  min="0"
+                  max="2"
+                  step="0.01"
+                  value="1"
+                />
+              </div>
+              <div class="mb-3">
+                <label
+                  for="contrastRange"
+                  class="font-weight-bold lang-contrastLabel"
+                >
+                  Контраст:
+                  <span id="contrastValue" class="lang-contrastValue">1</span>
+                </label>
+                <input
+                  type="range"
+                  id="contrastRange"
+                  class="form-control-range lang-contrastRange"
+                  min="0"
+                  max="3"
+                  step="0.01"
+                  value="1"
+                />
+              </div>
+              <!-- Фон изображения -->
+              <div class="mb-3">
+                <label class="font-weight-bold lang-backgroundLabel"
+                  >Фон:</label
+                >
+                <div class="background-group">
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="bgWhite"
+                      name="bgColor"
+                      class="custom-control-input lang-bgWhite"
+                      value="white"
+                      checked
+                    />
+                    <label
+                      class="custom-control-label lang-bgWhiteLabel"
+                      for="bgWhite"
+                      >Белый</label
+                    >
+                  </div>
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="bgLight"
+                      name="bgColor"
+                      class="custom-control-input lang-bgLight"
+                      value="light"
+                    />
+                    <label
+                      class="custom-control-label lang-bgLightLabel"
+                      for="bgLight"
+                      >Светлый</label
+                    >
+                  </div>
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="bgDark"
+                      name="bgColor"
+                      class="custom-control-input lang-bgDark"
+                      value="dark"
+                    />
+                    <label
+                      class="custom-control-label lang-bgDarkLabel"
+                      for="bgDark"
+                      >Тёмный</label
+                    >
+                  </div>
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="bgBlack"
+                      name="bgColor"
+                      class="custom-control-input lang-bgBlack"
+                      value="black"
+                    />
+                    <label
+                      class="custom-control-label lang-bgBlackLabel"
+                      for="bgBlack"
+                      >Чёрный</label
+                    >
+                  </div>
+                  <!-- Дополнительные варианты фона -->
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="bgVar1"
+                      name="bgColor"
+                      class="custom-control-input lang-bgVar1"
+                      value="var1"
+                    />
+                    <label
+                      class="custom-control-label lang-bgVar1Label"
+                      for="bgVar1"
+                      >Var1</label
+                    >
+                  </div>
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="bgVar2"
+                      name="bgColor"
+                      class="custom-control-input lang-bgVar2"
+                      value="var2"
+                    />
+                    <label
+                      class="custom-control-label lang-bgVar2Label"
+                      for="bgVar2"
+                      >Var2</label
+                    >
+                  </div>
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="bgVar3"
+                      name="bgColor"
+                      class="custom-control-input lang-bgVar3"
+                      value="var3"
+                    />
+                    <label
+                      class="custom-control-label lang-bgVar3Label"
+                      for="bgVar3"
+                      >Var3</label
+                    >
+                  </div>
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="bgVar4"
+                      name="bgColor"
+                      class="custom-control-input lang-bgVar4"
+                      value="var4"
+                    />
+                    <label
+                      class="custom-control-label lang-bgVar4Label"
+                      for="bgVar4"
+                      >Var4</label
+                    >
+                  </div>
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="bgVar5"
+                      name="bgColor"
+                      class="custom-control-input lang-bgVar5"
+                      value="var5"
+                    />
+                    <label
+                      class="custom-control-label lang-bgVar5Label"
+                      for="bgVar5"
+                      >Var5</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- Выбор режима точек -->
+              <div class="mb-3">
+                <label class="font-weight-bold lang-dotsLabel">Точки:</label>
+                <div class="radio-group">
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="dotsBW"
+                      name="dotsMode"
+                      class="custom-control-input lang-dotsBW"
+                      value="bw"
+                      checked
+                    />
+                    <label
+                      class="custom-control-label lang-dotsBWLabel"
+                      for="dotsBW"
+                      >Ч/Б</label
+                    >
+                  </div>
+                  <div
+                    class="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      id="dotsColor"
+                      name="dotsMode"
+                      class="custom-control-input lang-dotsColor"
+                      value="color"
+                    />
+                    <label
+                      class="custom-control-label lang-dotsColorLabel"
+                      for="dotsColor"
+                      >Цветные</label
+                    >
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <label
+                    for="dotColor"
+                    class="font-weight-bold lang-dotColorLabel"
+                    >Цвет точек:</label
+                  >
+                  <input
+                    type="color"
+                    id="dotColor"
+                    class="form-control lang-dotColorInput"
+                    value="#ff0000"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая панель: предпросмотр и информация -->
+        <div class="col-md-8 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <!-- Предпросмотр изображения/рисунка -->
+              <div class="preview mb-4 text-center lang-previewTitle">
+                <img
+                  src="../img/maxresdefault.jpg"
+                  alt="Исходное изображение"
+                  class="lang-previewImage"
+                />
+                <canvas
+                  id="resultCanvas"
+                  class="img-fluid border rounded lang-resultCanvas"
+                ></canvas>
+              </div>
+              <!-- Информация о точках и CSS-фильтр -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="info-text p-3 rounded lang-infoText">
+                    Кол-во точек по X:
+                    <span id="dotsX" class="lang-dotsX">0</span><br />
+                    Кол-во точек по Y:
+                    <span id="dotsY" class="lang-dotsY">0</span><br />
+                    Всего точек:
+                    <span id="dotsTotal" class="lang-dotsTotal">0</span>
+                  </div>
+                  <div class="form-group">
+                    <textarea
+                      id="cssFilterCode"
+                      class="form-control no-act lang-cssFilterCode"
+                      readonly
+                    ></textarea>
+                  </div>
+                </div>
+                <div
+                  class="col-md-6 d-flex align-items-center justify-content-center"
+                >
+                  <button
+                    id="saveImageBtn"
+                    class="btn btn-primary lang-saveImageBtn"
+                  >
+                    Сохранить фото
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Конец ряда -->
+    </main>
+    <!-- Блок описания -->
+    <div class="container my-4">
+      <div class="row description-block m-2">
+        <!-- Левая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title lang-descriptionTitle">
+            Описание: Конвертер фотографии в рисунок точками
+          </h3>
+          <p class="description-text lang-descriptionText">
+            Этот инструмент превращает обычную фотографию в художественное
+            изображение, составленное из множества точек. Эффект, напоминающий
+            точечную графику, придает изображению уникальный и креативный вид,
+            подчеркивая его художественную ценность.
+          </p>
+        </div>
+        <!-- Правая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title lang-goalsTitle">Цели и применение</h3>
+          <p class="description-text lang-goalsText">
+            Инструмент идеально подходит для создания арт-проектов,
+            нестандартных портретов и креативных визуальных решений. Его
+            используют дизайнеры и художники для создания оригинальных работ,
+            способных привлечь внимание и вызвать эмоциональный отклик.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Блок описания -->
+
+    <div class="container my-4">
+      <h2 class="text-center top-text mb-3 lang-toolsTitle">Мои инструменты</h2>
+      <div class="row">
+        <!-- Генератор оттенков -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color/color.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/image.png"
+                class="card-img-top"
+                alt="Генератор оттенков"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool1Title">Генератор оттенков</h5>
+                <p class="card-text lang-tool1Text">
+                  Этот инструмент позволяет генерировать разнообразные оттенки
+                  исходного цвета, что помогает подобрать гармоничные сочетания
+                  для ваших проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор CSS-градиентов -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/gradient/gradient.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-1.jpg"
+                class="card-img-top"
+                alt="Генератор CSS-градиентов"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool2Title">
+                  Генератор CSS-градиентов
+                </h5>
+                <p class="card-text lang-tool2Text">
+                  Создавайте плавные и элегантные градиенты, идеально подходящие
+                  для оформления сайтов и приложений, придавая им современный
+                  вид.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор CSS-фильтров -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/filter/filter.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-2.jpg"
+                class="card-img-top"
+                alt="Конструктор CSS-фильтров"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool3Title">
+                  Конструктор CSS-фильтров
+                </h5>
+                <p class="card-text lang-tool3Text">
+                  Применяйте широкий спектр CSS-фильтров для улучшения
+                  изображений и создания уникальных визуальных эффектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор Clip-Path -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/clip-path/clip-path.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-3.jpg"
+                class="card-img-top"
+                alt="Конструктор Clip-Path"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool4Title">
+                  Конструктор Clip-Path
+                </h5>
+                <p class="card-text lang-tool4Text">
+                  Экспериментируйте с формами с помощью clip-path, создавая
+                  оригинальные макеты и нестандартные дизайнерские решения.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер изображений в Base64 -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/base64/base64.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-4.jpg"
+                class="card-img-top"
+                alt="Конвертер изображений в Base64"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool5Title">
+                  Конвертер изображений в Base64
+                </h5>
+                <p class="card-text lang-tool5Text">
+                  Преобразуйте изображения в формат Base64, что упрощает их
+                  внедрение в веб-страницы без необходимости использования
+                  отдельных файлов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер в двухцветный трафарет -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color-2-stencil/color-2-stencil.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-5.jpg"
+                class="card-img-top"
+                alt="Конвертер в двухцветный трафарет"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool6Title">
+                  Конвертер в двухцветный трафарет
+                </h5>
+                <p class="card-text lang-tool6Text">
+                  Преобразуйте изображения в стильные двухцветные трафареты,
+                  идеально подходящие для печати и создания оригинальных
+                  дизайнерских проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер фотографии в рисунок точками -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/points/points.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-6.jpg"
+                class="card-img-top"
+                alt="Конвертер фотографии в рисунок точками"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool7Title">
+                  Конвертер фотографии в рисунок точками
+                </h5>
+                <p class="card-text lang-tool7Text">
+                  Превратите фотографию в произведение искусства, составленное
+                  из множества точек, для создания уникального визуального
+                  эффекта.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор QR-кода -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/QR‑Code/QR‑Code.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-7.jpg"
+                class="card-img-top"
+                alt="Генератор QR-кода"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool8Title">Генератор QR-кода</h5>
+                <p class="card-text lang-tool8Text">
+                  Создавайте QR-коды для быстрого обмена ссылками, контактами и
+                  другой важной информацией.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор ASCII-арта -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/ASCII/ASCII.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-8.jpg"
+                class="card-img-top"
+                alt="Генератор ASCII-арта"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool9Title">Генератор ASCII-арта</h5>
+                <p class="card-text lang-tool9Text">
+                  Преобразуйте изображения и текст в уникальное ASCII-искусство
+                  для создания оригинального визуального стиля.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Выделение объектов из фона -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/remove-bg/remove-bg.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-9.jpg"
+                class="card-img-top"
+                alt="Выделение объектов из фона"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool10Title">
+                  Выделение объектов из фона
+                </h5>
+                <p class="card-text lang-tool10Text">
+                  Автоматически разделите изображение со стикерами, удалите фон
+                  и сохраните каждый элемент как отдельное изображение для
+                  дальнейшей работы.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Modal для Конвертера фотографии в рисунок точками -->
+    <div
+      class="modal fade"
+      id="faqModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="faqModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title lang-faqModalTitle" id="faqModalLabel">
+              FAQ - Конвертер фотографии в рисунок точками
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Закрыть"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body lang-faqModalBodyText">
+            <p>
+              Этот инструмент преобразует фотографию в рисунок, составленный из
+              множества точек.
+            </p>
+            <ul>
+              <li>
+                <strong class="lang-faqItem1Question"
+                  >Что такое рисунок точками?</strong
+                >
+                <span class="lang-faqItem1Answer">
+                  Это техника, при которой изображение формируется из маленьких
+                  точек, создающих общую картину.
+                </span>
+              </li>
+              <li>
+                <strong class="lang-faqItem2Question"
+                  >Как настраиваются параметры?</strong
+                >
+                <span class="lang-faqItem2Answer">
+                  Вы можете изменять ширину, радиус точек, яркость и контраст
+                  для достижения нужного эффекта.
+                </span>
+              </li>
+              <li>
+                <strong class="lang-faqItem3Question"
+                  >Можно ли регулировать плотность точек?</strong
+                >
+                <span class="lang-faqItem3Answer">
+                  Да, используйте соответствующие ползунки для изменения
+                  плотности и размера точек.
+                </span>
+              </li>
+              <li>
+                <strong class="lang-faqItem4Question"
+                  >Как сохранить результат?</strong
+                >
+                <span class="lang-faqItem4Answer">
+                  После обработки изображение можно сохранить в выбранном
+                  формате.
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary lang-closeButton"
+              data-dismiss="modal"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Подвал -->
+    <footer class="mt-4">
+      <div class="container text-center">
+        <p class="mb-0 lang-footerText">
+          &copy; 2025 Генератор CSS-градиентов. Все права защищены.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS и зависимости -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Пользовательский JS -->
+    <script src="points.js"></script>
+    <script>
+      // Функция для определения системного языка
+      function detectSystemLanguage() {
+        const lang = navigator.language || navigator.userLanguage;
+        const lowerLang = lang.toLowerCase();
+        if (lowerLang.startsWith("ru")) {
+          return "ru";
+        } else if (lowerLang.startsWith("de")) {
+          return "de";
+        } else if (lowerLang.startsWith("it")) {
+          return "it";
+        } else if (lowerLang.startsWith("tr")) {
+          return "tr";
+        } else if (lowerLang.startsWith("es")) {
+          return "es";
+        } else if (lowerLang.startsWith("pl")) {
+          return "pl";
+        } else if (lowerLang.startsWith("fr")) {
+          return "fr";
+        } else if (lowerLang.startsWith("uk") || lowerLang.startsWith("ukr")) {
+          return "uk";
+        } else {
+          return "en";
+        }
+      }
+
+      // Получаем выбранный язык из localStorage или определяем по умолчанию
+      let currentLang = localStorage.getItem("lang") || detectSystemLanguage();
+      localStorage.setItem("lang", currentLang);
+
+      // Устанавливаем значение переключателя языка (если их несколько)
+      const langSwitchers = document.querySelectorAll(
+        "#langSwitcher, #langSwitcherBottom"
+      );
+      langSwitchers.forEach((switcher) => {
+        switcher.value = currentLang;
+        switcher.addEventListener("change", function () {
+          localStorage.setItem("lang", this.value);
+          currentLang = this.value;
+          applyTranslations(this.value);
+          // Обновляем все переключатели
+          langSwitchers.forEach((s) => (s.value = this.value));
+        });
+      });
+
+      // Функция для применения переводов из JSON ко всем элементам по классам
+      function applyTranslations(lang) {
+        fetch("../lang.json")
+          .then((response) => response.json())
+          .then((data) => {
+            // Ожидается, что переводы для данной страницы находятся в объекте "Color"
+            const translations = data[currentLang].Points; // <-- Правильная секция для градиентов
+
+            Object.keys(translations).forEach((key) => {
+              const elements = document.querySelectorAll(".lang-" + key);
+              elements.forEach((el) => {
+                if (el.hasAttribute("placeholder")) {
+                  el.setAttribute("placeholder", translations[key]);
+                } else {
+                  el.textContent = translations[key];
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error("Ошибка загрузки переводов:", error);
+          });
+      }
+
+      // Применяем переводы при загрузке страницы
+      document.addEventListener("DOMContentLoaded", function () {
+        applyTranslations(currentLang);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,256 @@
+/* ==========================
+   Переменные для тем
+   ========================== */
+
+/* Базовые (если body без класса) — можно не использовать, 
+   но пусть будут как fallback */
+:root {
+  --bg-color: #ffffff; /* Фон страницы */
+  --container-bg: #f5f5f5; /* Фон контейнеров и блоков */
+  --accent-color: #3498db; /* Акцентный цвет */
+  --accent-hover: #2980b9; /* Акцентный цвет при наведении */
+  --text-color: #333333; /* Основной текст */
+  --border-color: #ddd; /* Цвет границ */
+  --border-radius: 5px; /* Скругление углов */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Переопределения для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --accent-color: #e74c3c;
+  --accent-hover: #c0392b;
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+/* ==========================
+     Общие стили
+     ========================== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+html {
+  background-color: var(--bg-color);
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Карточки (Bootstrap .card) */
+.card {
+  background-color: var(--container-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--box-shadow) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.card-body {
+  background-color: var(--container-bg) !important;
+}
+
+/* Кнопки */
+.btn-primary {
+  background-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.btn-primary:hover {
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+}
+.btn-outline-primary {
+  color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  transition: background-color 0.3s, color 0.3s;
+}
+.btn-outline-primary:hover {
+  background-color: var(--accent-color) !important;
+  color: var(--bg-color) !important;
+  border-color: var(--accent-color) !important;
+}
+
+/* Поля и границы */
+.form-control,
+.form-control-range,
+.custom-control-input {
+  border-radius: var(--border-radius) !important;
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.form-control:focus,
+.custom-control-input:focus {
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25) !important;
+}
+
+/* Предпросмотр (canvas) */
+.preview canvas {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  max-width: 100%;
+  transition: border-color 0.3s;
+}
+
+/* Информационный блок */
+.info-text {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Текстовое поле для CSS-фильтра */
+#cssFilterCode {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+}
+/* filter.css */
+.no-act {
+  display: none;
+}
+/* filter.css */
+
+/* Определение CSS-переменных для светлой темы */
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container,
+.btn,
+header,
+footer {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+.header-text {
+  color: var(--accent-color);
+}
+#themeToggle {
+  color: var(--text-color);
+  border-color: var(--accent-color);
+}
+#themeToggle:hover {
+  background-color: var(--accent-color);
+}
+footer {
+  color: var(--text-color);
+}
+.btn-danger {
+  background-color: var(--accent-color) !important;
+
+  color: #fff !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: var(--accent-hover) !important;
+
+  color: var(--text-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--container-bg) !important;
+}
+
+.dropdown-item {
+  color: var(--text-color) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+
+.description-block {
+  margin: 20px 0 20px 0;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.description-title {
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-textt {
+  font-size: 16px;
+}
+
+.card {
+  background-color: var(--block-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-title {
+  color: var(--accent-color);
+}
+.card-text {
+  color: var(--text-color);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.top-text {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+.modal-content {
+  color: var(--text-color);
+  background-color: var(--bg-color) !important;
+}

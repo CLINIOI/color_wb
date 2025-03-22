@@ -1,0 +1,335 @@
+/* gradient.css */
+
+/* Определение CSS-переменных для светлой темы */
+:root {
+  --bg-color: #ffffff; /* Фон страницы: чистый белый */
+  --container-bg: #f5f5f5; /* Фон контейнеров и блоков: очень светлый серый */
+  --accent-color: #3498db; /* Акцентный цвет: яркий синий */
+  --accent-hover: #2980b9; /* Акцентный цвет при наведении */
+  --text-color: #333333; /* Основной текст */
+  --border-color: #ddd; /* Цвет границ */
+  --border-radius: 5px; /* Скругление углов */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Переопределения для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212; /* Фон страницы для тёмной темы: почти чёрный */
+  --container-bg: #1e1e1e; /* Фон блоков для тёмной темы: тёмно-серый */
+  --accent-color: #e74c3c; /* Акцентный цвет для тёмной темы: ярко-красный */
+  --accent-hover: #c0392b; /* Акцентный цвет при наведении для тёмной темы */
+  --text-color: #f0f0f0; /* Текст для тёмной темы */
+  --border-color: #555;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Шапка сайта (header) */
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Секции контента */
+.section {
+  margin-bottom: 30px;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: background-color 0.3s, color 0.3s;
+}
+.section h2 {
+  margin-top: 0;
+}
+
+/* Блоки управления */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.control {
+  flex: 1 1 300px;
+}
+
+/* Стили для элементов форм */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+input[type="range"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+/* Превью градиента */
+.gradient-preview {
+  height: 250px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+/* Список цветовых точек */
+.color-stops {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.color-stop {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  padding: 5px;
+  border-radius: var(--border-radius);
+  cursor: grab;
+  transition: background-color 0.3s;
+}
+body.dark-theme .color-stop {
+  background-color: #555;
+}
+.color-stop input[type="color"] {
+  margin-right: 10px;
+}
+.color-stop input[type="text"],
+.color-stop input[type="number"] {
+  width: 60px;
+  margin-right: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2px 4px;
+}
+.color-stop .delete-btn {
+  background-color: #e74c3c;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+/* Стили для кнопок */
+
+.btn-copy {
+  background-color: var(--accent-color);
+  color: #fff;
+}
+.btn-copy:hover {
+  background-color: var(--accent-hover);
+}
+.btn-download {
+  background-color: #2ecc71;
+  color: #fff;
+}
+.btn-download:hover {
+  background-color: #27ae60;
+}
+.btn-random {
+  background-color: #9b59b6;
+  color: #fff;
+}
+.btn-random:hover {
+  background-color: #8e44ad;
+}
+.btn-theme {
+  background-color: #f39c12;
+  color: #fff;
+}
+.btn-theme:hover {
+  background-color: #e67e22;
+}
+
+/* Галерея пресетов */
+.preset-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+.preset {
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+.preset:hover {
+  border-color: var(--accent-color);
+}
+
+/* Блок вывода CSS-кода */
+.output {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  font-family: monospace;
+  white-space: pre-wrap;
+  transition: background-color 0.3s;
+}
+body.dark-theme .output {
+  background-color: #555;
+}
+/* filter.css */
+section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+/* Определение CSS-переменных для светлой темы */
+:root {
+  --bg-color: #ffffff; /* Фон страницы */
+  --container-bg: #f5f5f5; /* Фон контейнеров и блоков */
+  --accent-color: #3498db; /* Акцентный цвет */
+  --accent-hover: #2980b9; /* Акцентный цвет при наведении */
+  --text-color: #333333; /* Основной текст */
+  --border-color: #ddd; /* Цвет границ */
+  --border-radius: 5px; /* Скругление углов */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Переопределения для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --accent-color: #e74c3c;
+  --accent-hover: #c0392b;
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container,
+.btn,
+header,
+footer {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+.header-text {
+  color: var(--accent-color);
+}
+#themeToggle {
+  color: var(--text-color);
+  border-color: var(--accent-color);
+}
+#themeToggle:hover {
+  background-color: var(--accent-color);
+}
+footer {
+  color: var(--text-color);
+}
+.btn-danger {
+  background-color: var(--accent-color) !important;
+
+  color: #fff !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: var(--accent-hover) !important;
+
+  color: var(--text-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--container-bg) !important;
+}
+
+.dropdown-item {
+  color: var(--text-color) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+
+.description-block {
+  margin: 20px 0 20px 0;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.description-title {
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 16px;
+}
+
+.card {
+  background-color: var(--block-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-title {
+  color: var(--accent-color);
+}
+.card-text {
+  color: var(--text-color);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.top-text {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+.modal-content {
+  color: var(--text-color);
+  background-color: var(--bg-color) !important;
+}

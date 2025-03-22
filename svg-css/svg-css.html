@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Конвертер SVG в CSS</title>
+    <style>
+      /* Сброс некоторых отступов */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f0f4f7;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      /* Левая и правая панели */
+      .panel {
+        position: relative;
+        width: 50%;
+        min-height: 300px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      /* Задний текст (SVG / CSS), чтобы выглядело как на скриншоте */
+      .panel::before {
+        content: attr(data-label); /* возьмём текст из data-атрибута */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #e0e0e0;
+        font-size: 72px;
+        font-weight: bold;
+        pointer-events: none; /* чтобы не мешать кликам */
+      }
+
+      /* Текстовое поле занимает всю панель */
+      .panel textarea {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        resize: none;
+        font-size: 14px;
+        padding: 10px;
+        background-color: transparent;
+        /* Прозрачный фон, чтобы видно было надпись сзади */
+      }
+
+      /* Контейнер для кнопок */
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      /* Стили кнопок */
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Инпут файла скрыт, но его label виден как кнопка */
+      .file-input-wrapper {
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      .file-input-wrapper input[type="file"] {
+        display: none;
+      }
+      .file-input-wrapper label {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #28a745;
+        color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+      }
+      .file-input-wrapper label:hover {
+        background-color: #1e7e34;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Конвертер SVG в CSS</h1>
+
+    <!-- Кнопка для загрузки файла -->
+    <div class="file-input-wrapper">
+      <input type="file" id="svgFile" accept=".svg" />
+      <label for="svgFile">получить код из файла</label>
+    </div>
+
+    <!-- Две панели: левая (SVG), правая (CSS) -->
+    <div class="container">
+      <div class="panel" data-label="SVG">
+        <textarea
+          id="svgInput"
+          placeholder="Вставьте здесь ваш SVG-код"
+        ></textarea>
+      </div>
+      <div class="panel" data-label="CSS">
+        <textarea
+          id="cssOutput"
+          placeholder="Здесь появится результат в виде CSS"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Кнопки для конвертации и копирования -->
+    <div class="buttons">
+      <button id="convertBtn">конвертировать</button>
+      <button id="copyBtn">скопировать в буфер</button>
+    </div>
+
+    <script>
+      // Получаем ссылки на элементы
+      const fileInput = document.getElementById("svgFile");
+      const svgInput = document.getElementById("svgInput");
+      const cssOutput = document.getElementById("cssOutput");
+      const convertBtn = document.getElementById("convertBtn");
+      const copyBtn = document.getElementById("copyBtn");
+
+      // Чтение SVG из загружаемого файла
+      fileInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          svgInput.value = e.target.result;
+        };
+        reader.readAsText(file);
+      });
+
+      // Функция конвертации SVG в CSS (data URI)
+      function convertSvgToCss(svgCode) {
+        // Очищаем возможные переводы строк
+        // (хотя можно и не убирать, браузер сам справится)
+        const svgCleaned = svgCode
+          .replace(/\r?\n|\r/g, "") // убираем переводы строк
+          .replace(/"/g, "'") // заменяем двойные кавычки на одинарные
+          .trim();
+
+        // Кодируем в base64
+        // Сначала делаем URI-энкод, потом btoa
+        // или используем window.btoa напрямую
+        const encoded = btoa(unescape(encodeURIComponent(svgCleaned)));
+
+        // Формируем CSS
+        return `background-image: url("data:image/svg+xml;base64,${encoded}");`;
+      }
+
+      // Обработка нажатия «конвертировать»
+      convertBtn.addEventListener("click", function () {
+        const svgCode = svgInput.value.trim();
+        if (!svgCode) {
+          alert("Пожалуйста, введите или загрузите SVG-код!");
+          return;
+        }
+
+        const cssCode = convertSvgToCss(svgCode);
+        cssOutput.value = cssCode;
+      });
+
+      // Копирование результата в буфер
+      copyBtn.addEventListener("click", function () {
+        if (!cssOutput.value) {
+          alert("Сначала нужно что-нибудь сконвертировать!");
+          return;
+        }
+        cssOutput.select();
+        document.execCommand("copy");
+        alert("Скопировано в буфер обмена!");
+      });
+    </script>
+  </body>
+</html>

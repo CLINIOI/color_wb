@@ -1,0 +1,309 @@
+/* palette.css */
+
+/* Определение переменных для тёмной темы */
+
+/* Глобальные стили */
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  background-color: var(--container-bg);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Шапка сайта */
+header {
+  margin-bottom: 20px;
+}
+header h1 {
+  text-align: center;
+  margin: 0;
+}
+
+/* Кнопка переключения темы */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 5px;
+  color: var(--bg-color);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.theme-toggle:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Область загрузки изображения */
+#drop-area {
+  border: 2px dashed var(--border-color);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: var(--container-bg);
+}
+#drop-area.highlight {
+  border-color: var(--accent-color);
+}
+
+/* Контейнер canvas */
+#canvas-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+canvas {
+  max-width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+}
+
+/* Контролы генерации палитры */
+.controls {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.controls label {
+  font-weight: bold;
+}
+
+/* Палитра */
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.color-swatch {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  border: 1px solid var(--text-color);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  transition: border 0.3s;
+}
+.color-swatch:hover {
+  border: 2px solid var(--accent-color);
+}
+.color-info {
+  font-size: 12px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 2px;
+  border-radius: 3px;
+}
+body.dark .color-info {
+  background: rgba(0, 0, 0, 0.7);
+}
+.copy-btn {
+  margin-top: 5px;
+  padding: 2px 5px;
+  font-size: 10px;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+.copy-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Кнопки для скачивания и экспорта */
+.download-buttons,
+.export-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.download-buttons button,
+.export-buttons button {
+  margin: 0 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--accent-color);
+  color: #fff;
+  transition: background-color 0.3s;
+}
+.btn-success:hover {
+  color: #fff;
+}
+.btn-warning:focus {
+  color: #ffffff;
+}
+.download-buttons button:hover,
+.export-buttons button:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .palette {
+    justify-content: center;
+  }
+}
+.no-act {
+  display: none;
+}
+/* filter.css */
+
+/* Определение CSS-переменных для светлой темы */
+:root {
+  --bg-color: #ffffff; /* Фон страницы */
+  --container-bg: #f5f5f5; /* Фон контейнеров и блоков */
+  --accent-color: #3498db; /* Акцентный цвет */
+  --accent-hover: #2980b9; /* Акцентный цвет при наведении */
+  --text-color: #333333; /* Основной текст */
+  --border-color: #ddd; /* Цвет границ */
+  --border-radius: 5px; /* Скругление углов */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Переопределения для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --accent-color: #e74c3c;
+  --accent-hover: #c0392b;
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container,
+.btn,
+header,
+footer {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+.header-text {
+  color: var(--accent-color);
+}
+#themeToggle {
+  color: var(--text-color);
+  border-color: var(--accent-color);
+}
+#themeToggle:hover {
+  background-color: var(--accent-color);
+}
+footer {
+  color: var(--text-color);
+}
+.btn-danger {
+  background-color: var(--accent-color) !important;
+
+  color: #fff !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: var(--accent-hover) !important;
+
+  color: var(--text-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--container-bg) !important;
+}
+
+.dropdown-item {
+  color: var(--text-color) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+#generatePalette {
+  background-color: var(--accent-color);
+}
+#generatePalette:hover {
+  background-color: var(--accent-hover);
+}
+
+.description-block {
+  margin: 20px 0 20px 0;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.description-title {
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 16px;
+}
+
+.card {
+  background-color: var(--block-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-title {
+  color: var(--accent-color);
+}
+.card-text {
+  color: var(--text-color);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.top-text {
+  color: var(--accent-color);
+  font-weight: bold;
+}

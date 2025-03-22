@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Генератор цветовых палитр по фотографии</title>
+    <!-- Bootstrap CSS для минималистичного дизайна -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Пользовательский CSS -->
+    <link rel="stylesheet" href="palette.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="mb-4 no-act">
+      <div class="container d-flex justify-content-between align-items-center">
+        <h1 class="mb-0">Генератор цветовых палитр по фотографии</h1>
+        <button id="themeToggle" class="btn btn-outline-primary ml-2">
+          Сменить тему
+        </button>
+      </div>
+    </header>
+    <header class="container mb-4">
+      <div class="d-flex align-items-center">
+        <h1 class="header-text mb-0">
+          Генератор цветовых палитр по фотографии
+        </h1>
+        <div class="ml-auto">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-danger dropdown-toggle btn-group-col"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Действие
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Главная</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/palette/palette.html"
+                >Генератор цветовых палитр по фотографии</a
+              >
+              <a class="dropdown-item" href="/color/color.html"
+                >Генератор оттенков</a
+              >
+              <a class="dropdown-item" href="/gradient/gradient.html"
+                >Генератор CSS-градиентов</a
+              >
+              <a class="dropdown-item" href="/filter/filter.html"
+                >Конструктор CSS-фильтров</a
+              >
+              <a class="dropdown-item" href="/clip-path/clip-path.html"
+                >Конструктор Clip-Path</a
+              >
+              <!--  <a
+                class="dropdown-item"
+                href="/file-converter/file-converter.html"
+                >Онлайн Конвертер Файлов</a
+              > -->
+              <a class="dropdown-item" href="/base64/base64.html"
+                >Конвертер изображений в Base64</a
+              >
+              <a
+                class="dropdown-item"
+                href="/color-2-stencil/color-2-stencil.html"
+                >Конвертер в двухцветный трафарет</a
+              >
+              <a class="dropdown-item" href="/points/points.html"
+                >Конвертер фотографии в рисунок точками</a
+              >
+              <a class="dropdown-item" href="/QR‑Code/QR‑Code.html"
+                >Генератор QR-кода</a
+              >
+              <a class="dropdown-item" href="/ASCII/ASCII.html"
+                >Генератор ASCII-арта</a
+              >
+              <a class="dropdown-item" href="/remove-bg/remove-bg.html"
+                >Выделение объектов из фона</a
+              >
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Отделенная ссылка</a>
+            </div>
+          </div>
+        </div>
+        <button id="themeToggle" class="btn btn-outline-primary ml-2">
+          Сменить тему
+        </button>
+      </div>
+    </header>
+    <!-- Основной контент -->
+    <main class="container">
+      <!-- Область загрузки изображения -->
+      <div
+        id="drop-area"
+        class="mb-4 p-4 text-center border border-secondary rounded"
+      >
+        <p>Перетащите изображение сюда или выберите файл</p>
+        <input
+          type="file"
+          id="fileElem"
+          accept="image/*"
+          class="form-control-file"
+        />
+      </div>
+
+      <!-- Контейнер для canvas с изображением -->
+      <div id="canvas-container" class="mb-4 text-center">
+        <canvas id="imageCanvas" class="img-fluid border rounded"></canvas>
+      </div>
+
+      <!-- Контролы для генерации палитры -->
+      <div class="controls mb-4 text-center">
+        <label for="colorCount" class="font-weight-bold">
+          Количество цветов: <span id="colorCountDisplay">5</span>
+        </label>
+        <input
+          type="range"
+          id="colorCount"
+          class="form-control-range"
+          min="1"
+          max="100"
+          value="5"
+        />
+        <button id="generatePalette" class="btn btn-primary mt-2">
+          Генерация палитры
+        </button>
+      </div>
+
+      <!-- Отображение сгенерированной палитры -->
+      <div
+        id="palette"
+        class="palette d-flex flex-wrap justify-content-center mb-4"
+      ></div>
+
+      <!-- Кнопки для скачивания -->
+      <!--    <div class="download-buttons text-center mb-4">
+        <button id="downloadPNG" class="btn btn-secondary">Скачать .png</button>
+        <button id="downloadJSON" class="btn btn-secondary">
+          Скачать .json
+        </button>
+        <button id="downloadCSS" class="btn btn-secondary">Скачать .css</button>
+      </div>
+
+      <div class="export-buttons text-center mb-4">
+        <button id="exportFigma" class="btn btn-secondary">
+          Экспорт в Figma
+        </button>
+        <button id="exportAdobe" class="btn btn-secondary">
+          Экспорт в Adobe Color
+        </button>
+        <button id="exportCoolors" class="btn btn-secondary">
+          Экспорт в Coolors
+        </button>
+      </div> -->
+    </main>
+    <div class="container my-4">
+      <div class="row description-block">
+        <!-- Левая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title">Заглавие слева</h3>
+          <p class="description-text">
+            Описание слева. Здесь можно разместить информацию, подчеркивающую
+            суть или предназначение данного блока.
+          </p>
+        </div>
+        <!-- Правая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title">Заглавие справа</h3>
+          <p class="description-text">
+            Описание справа. Здесь можно разместить дополнительную информацию
+            или детали, соответствующие теме.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="container my-4">
+      <h2 class="text-center top-text mb-3">Мои инструменты</h2>
+      <div class="row">
+        <!-- Генератор оттенков -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color/color.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="https://via.placeholder.com/300x200"
+                class="card-img-top"
+                alt="Генератор оттенков"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Генератор оттенков</h5>
+                <p class="card-text">
+                  Этот инструмент позволяет генерировать разнообразные оттенки
+                  исходного цвета, что помогает подобрать гармоничные сочетания
+                  для ваших проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор CSS-градиентов -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/gradient/gradient.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="https://via.placeholder.com/300x200"
+                class="card-img-top"
+                alt="Генератор CSS-градиентов"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Генератор CSS-градиентов</h5>
+                <p class="card-text">
+                  Создавайте плавные и элегантные градиенты, идеально подходящие
+                  для оформления сайтов и приложений, придавая им современный
+                  вид.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор CSS-фильтров -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/filter/filter.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="https://via.placeholder.com/300x200"
+                class="card-img-top"
+                alt="Конструктор CSS-фильтров"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Конструктор CSS-фильтров</h5>
+                <p class="card-text">
+                  Применяйте широкий спектр CSS-фильтров для улучшения
+                  изображений и создания уникальных визуальных эффектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор Clip-Path -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/clip-path/clip-path.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="https://via.placeholder.com/300x200"
+                class="card-img-top"
+                alt="Конструктор Clip-Path"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Конструктор Clip-Path</h5>
+                <p class="card-text">
+                  Экспериментируйте с формами с помощью clip-path, создавая
+                  оригинальные макеты и нестандартные дизайнерские решения.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер изображений в Base64 -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/base64/base64.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="https://via.placeholder.com/300x200"
+                class="card-img-top"
+                alt="Конвертер изображений в Base64"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Конвертер изображений в Base64</h5>
+                <p class="card-text">
+                  Преобразуйте изображения в формат Base64, что упрощает их
+                  внедрение в веб-страницы без необходимости использования
+                  отдельных файлов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер в двухцветный трафарет -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color-2-stencil/color-2-stencil.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="https://via.placeholder.com/300x200"
+                class="card-img-top"
+                alt="Конвертер в двухцветный трафарет"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Конвертер в двухцветный трафарет</h5>
+                <p class="card-text">
+                  Преобразуйте изображения в стильные двухцветные трафареты,
+                  идеально подходящие для печати и создания оригинальных
+                  дизайнерских проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер фотографии в рисунок точками -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/points/points.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="https://via.placeholder.com/300x200"
+                class="card-img-top"
+                alt="Конвертер фотографии в рисунок точками"
+              />
+              <div class="card-body">
+                <h5 class="card-title">
+                  Конвертер фотографии в рисунок точками
+                </h5>
+                <p class="card-text">
+                  Превратите фотографию в произведение искусства, составленное
+                  из множества точек, для создания уникального визуального
+                  эффекта.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор QR-кода -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/QR‑Code/QR‑Code.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="https://via.placeholder.com/300x200"
+                class="card-img-top"
+                alt="Генератор QR-кода"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Генератор QR-кода</h5>
+                <p class="card-text">
+                  Создавайте QR-коды для быстрого обмена ссылками, контактами и
+                  другой важной информацией.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор ASCII-арта -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/ASCII/ASCII.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="https://via.placeholder.com/300x200"
+                class="card-img-top"
+                alt="Генератор ASCII-арта"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Генератор ASCII-арта</h5>
+                <p class="card-text">
+                  Преобразуйте изображения и текст в уникальное ASCII-искусство
+                  для создания оригинального визуального стиля.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Выделение объектов из фона -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/remove-bg/remove-bg.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="https://via.placeholder.com/300x200"
+                class="card-img-top"
+                alt="Выделение объектов из фона"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Выделение объектов из фона</h5>
+                <p class="card-text">
+                  Автоматически разделите изображение со стикерами, удалите фон
+                  и сохраните каждый элемент как отдельное изображение для
+                  дальнейшей работы.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-4">
+      <div class="container text-center">
+        <p class="mb-0">
+          &copy; 2025 Генератор CSS-градиентов. Все права защищены.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Подключение Bootstrap JS и зависимостей -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Пользовательский JS -->
+    <script src="palette.js"></script>
+  </body>
+</html>

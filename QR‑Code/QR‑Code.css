@@ -1,0 +1,256 @@
+/* Основные переменные для светлой и темной темы */
+:root {
+  --page-bg: #f7f7f7; /* Фон страницы (светлая тема) */
+  --container-bg: #ffffff; /* Фон блоков и контейнеров (светлая тема) */
+  --accent-color: #3498db; /* Акцентный цвет (светлая тема) */
+  --text-color: #333333; /* Основной цвет текста */
+  --border-color: #ccc; /* Цвет границ */
+  --border-radius: 8px; /* Скругление углов для блоков */
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень для блоков */
+}
+
+/* Переопределения для темной темы */
+body.dark-theme {
+  --page-bg: #121212;
+  --container-bg: #1e1e1e;
+  --accent-color: #e74c3c;
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+
+/* Глобальные стили */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: var(--page-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Унифицированный контейнер для формы и предпросмотра */
+form,
+#previewArea {
+  max-width: 1200px;
+  margin: 0 auto 20px auto;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+/* Заголовок страницы */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Стили для элементов формы */
+form > div {
+  margin-bottom: 15px;
+}
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+input[type="text"],
+select,
+textarea,
+input[type="number"] {
+  padding: 5px;
+  width: 250px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type="color"] {
+  margin-right: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+input[type="range"] {
+  vertical-align: middle;
+}
+
+/* Кнопки */
+button {
+  padding: 8px 12px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--accent-color);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Область предпросмотра QR-кода */
+#previewArea {
+  text-align: center;
+}
+
+/* Поля для постоянной ссылки и HTML-кода */
+#permanentLink,
+#embedCode {
+  width: 100%;
+  margin-top: 5px;
+}
+#embedCode {
+  height: 60px;
+  resize: vertical;
+}
+
+/* Дополнительные универсальные стили */
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  text-decoration: underline;
+}
+/* filter.css */
+
+/* Определение CSS-переменных для светлой темы */
+:root {
+  --bg-color: #ffffff; /* Фон страницы */
+  --container-bg: #f5f5f5; /* Фон контейнеров и блоков */
+  --accent-color: #3498db; /* Акцентный цвет */
+  --accent-hover: #2980b9; /* Акцентный цвет при наведении */
+  --text-color: #333333; /* Основной текст */
+  --border-color: #ddd; /* Цвет границ */
+  --border-radius: 5px; /* Скругление углов */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Переопределения для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --accent-color: #e74c3c;
+  --accent-hover: #c0392b;
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container,
+.btn,
+header,
+footer {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+.header-text {
+  color: var(--accent-color);
+}
+#themeToggle {
+  color: var(--text-color);
+  border-color: var(--accent-color);
+}
+#themeToggle:hover {
+  background-color: var(--accent-color);
+}
+footer {
+  color: var(--text-color);
+}
+.btn-danger {
+  background-color: var(--accent-color) !important;
+
+  color: #fff !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: var(--accent-hover) !important;
+
+  color: var(--text-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--container-bg) !important;
+}
+
+.dropdown-item {
+  color: var(--text-color) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+.w-auto {
+  width: 100px !important;
+  border-radius: 12px !important;
+}
+
+.description-block {
+  margin: 20px 0 20px 0;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.description-title {
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 16px;
+}
+
+.card {
+  background-color: var(--block-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-title {
+  color: var(--accent-color);
+}
+.card-text {
+  color: var(--text-color);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.top-text {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+.modal-content {
+  color: var(--text-color);
+  background-color: var(--bg-color) !important;
+}

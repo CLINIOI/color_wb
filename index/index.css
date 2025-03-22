@@ -1,0 +1,254 @@
+/* styles.css */
+
+/* Определение переменных для светлой темы */
+:root {
+  --bg-color: #ffffff;
+  --container-bg: #f8f9fa;
+  --header-bg: #f8f9fa;
+  --footer-bg: #f8f9fa;
+  --text-color: #333333;
+  --primary-color: #3498db;
+  --accent-color: #2980b9;
+  --card-bg: #ffffff;
+  --card-border: #dddddd;
+  --btn-outline-color: #3498db;
+  --btn-outline-hover-bg: #2980b9;
+  --btn-outline-hover-color: #ffffff;
+  --border-radius: 5px; /* Скругление углов */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Определение переменных для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --header-bg: #1e1e1e;
+  --footer-bg: #1e1e1e;
+  --text-color: #e0e0e0;
+  --primary-color: #e74c3c;
+  --accent-color: #c0392b;
+  --card-bg: #1e1e1e;
+  --card-border: #444444;
+  --btn-outline-color: #e74c3c;
+  --btn-outline-hover-bg: #c0392b;
+  --btn-outline-hover-color: #ffffff;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: "Arial", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  padding: 0;
+}
+
+/* Стили Header */
+header {
+  background-color: var(--header-bg);
+  padding: 20px 0;
+  border-bottom: 1px solid var(--card-border);
+  transition: background-color 0.3s ease;
+}
+
+.header-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+/* Стили навигации */
+nav ul.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+nav ul.nav li.nav-item {
+  display: inline-block;
+  margin-left: 20px;
+}
+nav ul.nav li.nav-item a.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+nav ul.nav li.nav-item a.nav-link:hover {
+  color: var(--primary-color);
+}
+
+/* Стили Hero Section */
+.jumbotron {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+.jumbotron h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+.jumbotron p.lead {
+  font-size: 18px;
+}
+
+/* Стили карточек (Cards) */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, background-color 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Стили изображений карточек */
+.card-img-top {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* Стили содержимого карточек */
+.card-body {
+  padding: 15px;
+}
+.card-title {
+  font-size: 20px;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+.card-text {
+  font-size: 16px;
+}
+
+/* Стили кнопок */
+.btn {
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+.btn-primary {
+  background-color: var(--primary-color);
+  border: none;
+}
+.btn-primary:hover {
+  background-color: var(--accent-color);
+}
+.btn-outline-primary {
+  color: var(--btn-outline-color);
+  border: 1px solid var(--btn-outline-color);
+  background-color: transparent;
+}
+.btn-outline-primary:hover {
+  background-color: var(--btn-outline-hover-bg);
+  color: var(--btn-outline-hover-color);
+}
+
+/* Стили Dropdown */
+.dropdown-menu {
+  background-color: var(--container-bg) !important;
+  border: 1px solid var(--card-border);
+}
+.dropdown-item {
+  color: var(--text-color) !important;
+}
+.dropdown-item:hover {
+  background-color: var(--primary-color) !important;
+  color: var(--btn-outline-hover-color) !important;
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+/* Адаптивные настройки */
+@media (max-width: 768px) {
+  header,
+  footer {
+    text-align: center;
+  }
+  nav ul.nav li.nav-item {
+    display: block;
+    margin: 10px 0;
+  }
+}
+
+footer {
+  color: var(--text-color);
+}
+.btn-danger {
+  background-color: var(--accent-color) !important;
+
+  color: #fff !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: var(--accent-hover) !important;
+
+  color: var(--text-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--container-bg) !important;
+}
+
+.dropdown-item {
+  color: var(--text-color) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+
+.description-block {
+  margin: 20px 0 20px 0;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.description-title {
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 16px;
+}
+.minimal-block {
+  max-width: 1200px;
+
+  padding: 20px;
+}
+.text-act {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+/* Отключение горизонтального скролла */
+body {
+  overflow-x: hidden;
+
+  /* Для Firefox: */
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
