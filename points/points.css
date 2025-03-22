@@ -276,3 +276,10 @@ footer {
     justify-content: space-between;
   }
 }
+@media (max-width: 1375px) {
+  .dropdown-menu-center {
+    top: 50px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
