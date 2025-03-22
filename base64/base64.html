@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title class="lang-title">Конвертер изображений в Base64</title>
+    <!-- Bootstrap CSS для минималистичного дизайна -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Пользовательский CSS -->
+    <link rel="stylesheet" href="base64.css" />
+  </head>
+  <body>
+    <!-- Навигационная панель с переключателем языка и темы -->
+    <header class="container mb-4">
+      <div class="d-flex align-items-center">
+        <h1 class="header-text mb-0 lang-headerText">
+          Конвертер изображений в Base64
+        </h1>
+        <div class="ml-auto d-flex align-items-center">
+          <!-- Переключатель языка -->
+          <select
+            id="langSwitcher"
+            class="form-control lang-langSwitcher"
+            style="width: auto; margin-right: 10px"
+          >
+            <option value="en">English</option>
+            <option value="ru" selected>Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="tr">Türkçe</option>
+            <option value="es">Español</option>
+            <option value="pl">Polski</option>
+            <option value="fr">Français</option>
+            <option value="uk">Українська</option>
+          </select>
+
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-danger dropdown-toggle btn-group-col lang-action"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Действие
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item lang-home" href="/index/index.html"
+                >Главная</a
+              >
+              <div class="dropdown-divider"></div>
+              <a
+                class="dropdown-item lang-shadeGenerator"
+                href="/color/color.html"
+                >Генератор оттенков</a
+              >
+              <a
+                class="dropdown-item lang-cssGradientGenerator"
+                href="/gradient/gradient.html"
+                >Генератор CSS-градиентов</a
+              >
+              <a
+                class="dropdown-item lang-cssFilterConstructor"
+                href="/filter/filter.html"
+                >Конструктор CSS-фильтров</a
+              >
+              <a
+                class="dropdown-item lang-clipPathConstructor"
+                href="/clip-path/clip-path.html"
+                >Конструктор Clip-Path</a
+              >
+              <!--  <a
+                class="dropdown-item lang-fileConverter"
+                href="/file-converter/file-converter.html"
+                >Онлайн Конвертер Файлов</a
+              > -->
+              <a
+                class="dropdown-item lang-base64Converter"
+                href="/base64/base64.html"
+                >Конвертер изображений в Base64</a
+              >
+              <a
+                class="dropdown-item lang-bicolorStencilConverter"
+                href="/color-2-stencil/color-2-stencil.html"
+                >Конвертер в двухцветный трафарет</a
+              >
+              <a
+                class="dropdown-item lang-pointConverter"
+                href="/points/points.html"
+                >Конвертер фотографии в рисунок точками</a
+              >
+              <a
+                class="dropdown-item lang-qrCodeGenerator"
+                href="/QR‑Code/QR‑Code.html"
+                >Генератор QR-кода</a
+              >
+              <a
+                class="dropdown-item lang-asciiGenerator"
+                href="/ASCII/ASCII.html"
+                >Генератор ASCII-арта</a
+              >
+              <a
+                class="dropdown-item lang-backgroundRemoval"
+                href="/remove-bg/remove-bg.html"
+                >Выделение объектов из фона</a
+              >
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item lang-separatedLink" href="#"
+                >Отделенная ссылка</a
+              >
+            </div>
+          </div>
+          <button
+            id="themeToggle"
+            class="btn btn-outline-primary ml-2 lang-toggleTheme"
+          >
+            Сменить тему
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="container my-4">
+      <main>
+        <!-- Секция загрузки файла -->
+        <div class="upload-section text-center mb-4">
+          <label for="imageInput" class="btn btn-primary lang-selectImage">
+            Выберите изображение
+          </label>
+          <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            style="display: none"
+          />
+        </div>
+
+        <!-- Предпросмотр изображения и информация о файле -->
+        <div class="preview-section text-center mb-4">
+          <img
+            id="previewImg"
+            src=""
+            alt="Предпросмотр"
+            class="img-fluid lang-previewAlt"
+            style="max-width: 300px; display: none"
+          />
+          <div id="imageDetails" class="mt-2" style="display: none"></div>
+        </div>
+
+        <!-- Результирующее окно с кодом -->
+        <div class="result-section mb-4">
+          <div class="form-check mb-3">
+            <input type="checkbox" id="bgCheckbox" class="form-check-input" />
+            <label
+              for="bgCheckbox"
+              class="form-check-label lang-bgCheckboxLabel"
+            >
+              Добавить <code>background-image</code> в код
+            </label>
+          </div>
+          <div class="form-group">
+            <textarea
+              id="base64Output"
+              class="form-control lang-base64Placeholder"
+              rows="8"
+              placeholder="Здесь появится ваш Base64-код или CSS код..."
+              readonly
+            ></textarea>
+          </div>
+          <div class="text-center">
+            <button id="copyBtn" class="btn btn-success lang-copyBtn">
+              Скопировать код
+            </button>
+            <button id="faqBtn" class="btn ml-2 btn-info lang-faqButton">
+              FAQ
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="container my-4">
+      <div class="row description-block m-2">
+        <!-- Левая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title lang-descriptionTitle">
+            Описание: Конвертер изображений в Base64
+          </h3>
+          <p class="description-text lang-descriptionText">
+            Этот инструмент преобразует графические файлы в строку Base64, что
+            позволяет интегрировать изображения непосредственно в код. Такой
+            подход упрощает процесс встраивания изображений в HTML и CSS,
+            избавляя от необходимости загружать отдельные файлы.
+          </p>
+        </div>
+        <!-- Правая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title lang-goalsTitle">Цели и применение</h3>
+          <p class="description-text lang-goalsText">
+            Применение данного конвертера позволяет оптимизировать загрузку
+            веб-страниц и упростить управление ресурсами. Он особенно полезен
+            для разработчиков, стремящихся улучшить скорость загрузки и
+            структуру сайта за счет уменьшения количества HTTP-запросов.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-4">
+      <h2 class="text-center top-text mb-3 lang-toolsTitle">Мои инструменты</h2>
+      <div class="row">
+        <!-- Генератор оттенков -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color/color.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/image.png"
+                class="card-img-top"
+                alt="Генератор оттенков"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool1Title">Генератор оттенков</h5>
+                <p class="card-text lang-tool1Text">
+                  Этот инструмент позволяет генерировать разнообразные оттенки
+                  исходного цвета, что помогает подобрать гармоничные сочетания
+                  для ваших проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор CSS-градиентов -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/gradient/gradient.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-1.jpg"
+                class="card-img-top"
+                alt="Генератор CSS-градиентов"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool2Title">
+                  Генератор CSS-градиентов
+                </h5>
+                <p class="card-text lang-tool2Text">
+                  Создавайте плавные и элегантные градиенты, идеально подходящие
+                  для оформления сайтов и приложений, придавая им современный
+                  вид.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор CSS-фильтров -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/filter/filter.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-2.jpg"
+                class="card-img-top"
+                alt="Конструктор CSS-фильтров"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool3Title">
+                  Конструктор CSS-фильтров
+                </h5>
+                <p class="card-text lang-tool3Text">
+                  Применяйте широкий спектр CSS-фильтров для улучшения
+                  изображений и создания уникальных визуальных эффектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор Clip-Path -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/clip-path/clip-path.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-3.jpg"
+                class="card-img-top"
+                alt="Конструктор Clip-Path"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool4Title">
+                  Конструктор Clip-Path
+                </h5>
+                <p class="card-text lang-tool4Text">
+                  Экспериментируйте с формами с помощью clip-path, создавая
+                  оригинальные макеты и нестандартные дизайнерские решения.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер изображений в Base64 -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/base64/base64.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-4.jpg"
+                class="card-img-top"
+                alt="Конвертер изображений в Base64"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool5Title">
+                  Конвертер изображений в Base64
+                </h5>
+                <p class="card-text lang-tool5Text">
+                  Преобразуйте изображения в формат Base64, что упрощает их
+                  внедрение в веб-страницы без необходимости использования
+                  отдельных файлов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер в двухцветный трафарет -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color-2-stencil/color-2-stencil.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-5.jpg"
+                class="card-img-top"
+                alt="Конвертер в двухцветный трафарет"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool6Title">
+                  Конвертер в двухцветный трафарет
+                </h5>
+                <p class="card-text lang-tool6Text">
+                  Преобразуйте изображения в стильные двухцветные трафареты,
+                  идеально подходящие для печати и создания оригинальных
+                  дизайнерских проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер фотографии в рисунок точками -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/points/points.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-6.jpg"
+                class="card-img-top"
+                alt="Конвертер фотографии в рисунок точками"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool7Title">
+                  Конвертер фотографии в рисунок точками
+                </h5>
+                <p class="card-text lang-tool7Text">
+                  Превратите фотографию в произведение искусства, составленное
+                  из множества точек, для создания уникального визуального
+                  эффекта.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор QR-кода -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/QR‑Code/QR‑Code.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-7.jpg"
+                class="card-img-top"
+                alt="Генератор QR-кода"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool8Title">Генератор QR-кода</h5>
+                <p class="card-text lang-tool8Text">
+                  Создавайте QR-коды для быстрого обмена ссылками, контактами и
+                  другой важной информацией.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор ASCII-арта -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/ASCII/ASCII.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-8.jpg"
+                class="card-img-top"
+                alt="Генератор ASCII-арта"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool9Title">Генератор ASCII-арта</h5>
+                <p class="card-text lang-tool9Text">
+                  Преобразуйте изображения и текст в уникальное ASCII-искусство
+                  для создания оригинального визуального стиля.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Выделение объектов из фона -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/remove-bg/remove-bg.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-9.jpg"
+                class="card-img-top"
+                alt="Выделение объектов из фона"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool10Title">
+                  Выделение объектов из фона
+                </h5>
+                <p class="card-text lang-tool10Text">
+                  Автоматически разделите изображение со стикерами, удалите фон
+                  и сохраните каждый элемент как отдельное изображение для
+                  дальнейшей работы.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Modal для конвертера Base64 -->
+    <div
+      class="modal fade"
+      id="faqModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="faqModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title lang-faqModalTitle" id="faqModalLabel">
+              FAQ - Конвертер изображений в Base64
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Закрыть"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body lang-faqModalBodyText">
+            <p>
+              Этот инструмент преобразует изображения в строку Base64 для
+              удобного встраивания в код.
+            </p>
+            <ul>
+              <li>
+                <strong>Какие форматы поддерживаются?</strong> Поддерживаются
+                JPEG, PNG, GIF и BMP.
+              </li>
+              <li>
+                <strong>Как использовать полученный код?</strong> Вставьте
+                строку Base64 в HTML или CSS для отображения изображения.
+              </li>
+              <li>
+                <strong>Можно ли редактировать код?</strong> Да, результат можно
+                копировать и изменять по необходимости.
+              </li>
+              <li>
+                <strong>Как улучшить качество?</strong> Используйте изображения
+                высокого разрешения для оптимального результата.
+              </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary lang-closeButton"
+              data-dismiss="modal"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-4">
+      <div class="container text-center">
+        <p class="mb-0 lang-footerText">
+          &copy; 2025 Генератор CSS-градиентов. Все права защищены.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS и зависимости -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Пользовательский JS -->
+    <script src="base64.js"></script>
+    <script>
+      // Функция для определения системного языка
+      function detectSystemLanguage() {
+        const lang = navigator.language || navigator.userLanguage;
+        const lowerLang = lang.toLowerCase();
+        if (lowerLang.startsWith("ru")) {
+          return "ru";
+        } else if (lowerLang.startsWith("de")) {
+          return "de";
+        } else if (lowerLang.startsWith("it")) {
+          return "it";
+        } else if (lowerLang.startsWith("tr")) {
+          return "tr";
+        } else if (lowerLang.startsWith("es")) {
+          return "es";
+        } else if (lowerLang.startsWith("pl")) {
+          return "pl";
+        } else if (lowerLang.startsWith("fr")) {
+          return "fr";
+        } else if (lowerLang.startsWith("uk") || lowerLang.startsWith("ukr")) {
+          return "uk";
+        } else {
+          return "en";
+        }
+      }
+
+      // Получаем выбранный язык из localStorage или определяем по умолчанию
+      let currentLang = localStorage.getItem("lang") || detectSystemLanguage();
+      localStorage.setItem("lang", currentLang);
+
+      // Устанавливаем значение переключателей языка (если их несколько)
+      const langSwitchers = document.querySelectorAll(
+        "#langSwitcher, #langSwitcherBottom"
+      );
+      langSwitchers.forEach((switcher) => {
+        switcher.value = currentLang;
+        switcher.addEventListener("change", function () {
+          localStorage.setItem("lang", this.value);
+          currentLang = this.value;
+          applyTranslations(this.value);
+          // Обновляем все переключатели
+          langSwitchers.forEach((s) => (s.value = this.value));
+        });
+      });
+
+      // Функция для применения переводов из JSON ко всем элементам по классам
+      function applyTranslations(lang) {
+        fetch("../lang.json")
+          .then((response) => response.json())
+          .then((data) => {
+            // Здесь ожидается, что переводы для данной страницы находятся в объекте Base64
+            const translations = data[lang].Base64;
+            // Проходим по всем ключам перевода
+            Object.keys(translations).forEach((key) => {
+              // Ищем элементы, у которых есть класс вида .lang-ключ
+              const elements = document.querySelectorAll(".lang-" + key);
+              elements.forEach((el) => {
+                // Если элемент имеет атрибут placeholder, обновляем его, иначе меняем текстовое содержимое
+                if (el.hasAttribute("placeholder")) {
+                  el.setAttribute("placeholder", translations[key]);
+                } else {
+                  el.textContent = translations[key];
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error("Ошибка загрузки переводов:", error);
+          });
+      }
+
+      // Применяем переводы при загрузке страницы
+      document.addEventListener("DOMContentLoaded", function () {
+        applyTranslations(currentLang);
+      });
+    </script>
+  </body>
+</html>

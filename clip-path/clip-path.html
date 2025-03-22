@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title class="lang-title">
+      Конструктор Clip-Path + Фильтры (расширенная версия)
+    </title>
+    <!-- Bootstrap CSS для минималистичного дизайна -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Пользовательский CSS -->
+    <link rel="stylesheet" href="clip-path.css" />
+  </head>
+  <body>
+    <!-- Навигационная панель с переключателем темы и языка -->
+    <header class="container mb-4">
+      <div class="d-flex align-items-center">
+        <h1 class="header-text mb-0 lang-headerText">Конструктор Clip-Path</h1>
+        <div class="ml-auto d-flex align-items-center">
+          <div class="btn-group">
+            <select
+              id="langSwitcher"
+              class="form-control lang-langSwitcher"
+              style="width: auto; margin-right: 10px"
+            >
+              <option value="en">English</option>
+              <option value="ru" selected>Русский</option>
+              <option value="de">Deutsch</option>
+              <option value="it">Italiano</option>
+              <option value="tr">Türkçe</option>
+              <option value="es">Español</option>
+              <option value="pl">Polski</option>
+              <option value="fr">Français</option>
+              <option value="uk">Українська</option>
+            </select>
+
+            <button
+              type="button"
+              class="btn btn-danger dropdown-toggle btn-group-col lang-action"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Действие
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item lang-home" href="/index/index.html"
+                >Главная</a
+              >
+              <div class="dropdown-divider"></div>
+              <!-- <a class="dropdown-item" href="/palette/palette.html">Генератор цветовых палитр по фотографии</a> -->
+              <a
+                class="dropdown-item lang-shadeGenerator"
+                href="/color/color.html"
+                >Генератор оттенков</a
+              >
+              <a
+                class="dropdown-item lang-cssGradientGenerator"
+                href="/gradient/gradient.html"
+                >Генератор CSS-градиентов</a
+              >
+              <a
+                class="dropdown-item lang-filterConstructor"
+                href="/filter/filter.html"
+                >Конструктор CSS-фильтров</a
+              >
+              <a
+                class="dropdown-item lang-clipPathConstructor"
+                href="/clip-path/clip-path.html"
+                >Конструктор Clip-Path</a
+              >
+              <!--  <a
+                class="dropdown-item lang-fileConverter"
+                href="/file-converter/file-converter.html"
+                >Онлайн Конвертер Файлов</a
+              > -->
+              <a
+                class="dropdown-item lang-base64Converter"
+                href="/base64/base64.html"
+                >Конвертер изображений в Base64</a
+              >
+              <a
+                class="dropdown-item lang-bicolorStencilConverter"
+                href="/color-2-stencil/color-2-stencil.html"
+                >Конвертер в двухцветный трафарет</a
+              >
+              <a
+                class="dropdown-item lang-pointConverter"
+                href="/points/points.html"
+                >Конвертер фотографии в рисунок точками</a
+              >
+              <a
+                class="dropdown-item lang-qrCodeGenerator"
+                href="/QR‑Code/QR‑Code.html"
+                >Генератор QR-кода</a
+              >
+              <a
+                class="dropdown-item lang-asciiGenerator"
+                href="/ASCII/ASCII.html"
+                >Генератор ASCII-арта</a
+              >
+              <a
+                class="dropdown-item lang-backgroundRemoval"
+                href="/remove-bg/remove-bg.html"
+                >Выделение объектов из фона</a
+              >
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item lang-separatedLink" href="#"
+                >Отделенная ссылка</a
+              >
+            </div>
+          </div>
+
+          <button
+            id="themeToggle"
+            class="btn btn-outline-primary ml-2 lang-toggleTheme"
+          >
+            Сменить тему
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="container my-4">
+      <div class="row">
+        <!-- Левая панель: Пресеты, загрузка изображения, фильтры и управление точками -->
+        <div class="col-lg-6 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title h5 lang-presetsTitle">Пресеты фигур</h2>
+              <div class="presets d-flex flex-wrap gap-2 mb-3">
+                <!-- Пресеты фигур с указанием путей для светлой и тёмной темы -->
+                <!-- 1. circle -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="circle"
+                >
+                  <img
+                    src="icons/circle.png"
+                    data-light="icons/object_001.png"
+                    data-dark="icons/object_001_dark.png"
+                    alt="Circle"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-circle">Круг</div>
+                </button>
+                <!-- 2. ellipse -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="ellipse"
+                >
+                  <img
+                    src="icons/ellipse.png"
+                    data-light="icons/object_005.png"
+                    data-dark="icons/object_005_dark.png"
+                    alt="Ellipse"
+                    class="mb-1"
+                    width="24"
+                    height="auto"
+                  />
+                  <div class="small lang-ellipse">Эллипс</div>
+                </button>
+                <!-- 3. polygon-star (5 лучей) -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="polygon-star"
+                >
+                  <img
+                    src="icons/star5.png"
+                    data-light="icons/object_002.png"
+                    data-dark="icons/object_002_dark.png"
+                    alt="Star5"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-star">Звезда</div>
+                </button>
+                <!-- 4. rhombus -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="rhombus"
+                >
+                  <img
+                    src="icons/rhombus.png"
+                    data-light="icons/object_003.png"
+                    data-dark="icons/object_003_dark.png"
+                    alt="Rhombus"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-rhombus">Ромб</div>
+                </button>
+                <!-- 5. triangle -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="triangle"
+                >
+                  <img
+                    src="icons/triangle.png"
+                    data-light="icons/object_004.png"
+                    data-dark="icons/object_004_dark.png"
+                    alt="Triangle"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-triangle">Треугольник</div>
+                </button>
+                <!-- 6. pentagon -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="pentagon"
+                >
+                  <img
+                    src="icons/pentagon.png"
+                    data-light="icons/object_010.png"
+                    data-dark="icons/object_010_dark.png"
+                    alt="Pentagon"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-pentagon">Пентагон</div>
+                </button>
+                <!-- 7. hexagon -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="hexagon"
+                >
+                  <img
+                    src="icons/hexagon.png"
+                    data-light="icons/object_008.png"
+                    data-dark="icons/object_007_dark.png"
+                    alt="Hexagon"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-hexagon">Шестиуг.</div>
+                </button>
+                <!-- 8. heptagon -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="heptagon"
+                >
+                  <img
+                    src="icons/heptagon.png"
+                    data-light="icons/object_006.png"
+                    data-dark="icons/object_006_dark.png"
+                    alt="Heptagon"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-heptagon">Семииуг.</div>
+                </button>
+                <!-- 9. octagon -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="octagon"
+                >
+                  <img
+                    src="icons/octagon.png"
+                    data-light="icons/object_009.png"
+                    data-dark="icons/object_009_dark.png"
+                    alt="Octagon"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-octagon">Восьмиуг.</div>
+                </button>
+                <!-- 10. nonagon -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="nonagon"
+                >
+                  <img
+                    src="icons/nonagon.png"
+                    data-light="icons/object_007.png"
+                    data-dark="icons/object_007_dark.png"
+                    alt="Nonagon"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-nonagon">Девятиуг.</div>
+                </button>
+                <!-- 11. decagon -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="decagon"
+                >
+                  <img
+                    src="icons/decagon.png"
+                    data-light="icons/object_012.png"
+                    data-dark="icons/object_012_dark.png"
+                    alt="Decagon"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-decagon">Десятиуг.</div>
+                </button>
+                <!-- 12. star6 -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="star6"
+                >
+                  <img
+                    src="icons/star6.png"
+                    data-light="icons/object_013.png"
+                    data-dark="icons/object_013_dark.png"
+                    alt="Star6"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-star6">Звезда-6</div>
+                </button>
+                <!-- 13. star8 -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="star8"
+                >
+                  <img
+                    src="icons/star8.png"
+                    data-light="icons/object_011.png"
+                    data-dark="icons/object_011_dark.png"
+                    alt="Star8"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-star8">Звезда-8</div>
+                </button>
+                <!-- 14. trapezoid -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="trapezoid"
+                >
+                  <img
+                    src="icons/trapezoid.png"
+                    data-light="icons/object_015.png"
+                    data-dark="icons/object_015_dark.png"
+                    alt="Trapezoid"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-trapezoid">Трапеция</div>
+                </button>
+                <!-- 15. parallelogram -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="parallelogram"
+                >
+                  <img
+                    src="icons/parallelogram.png"
+                    data-light="icons/object_014.png"
+                    data-dark="icons/object_014_dark.png"
+                    alt="Parallelogram"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-parallelogram">Параллел.</div>
+                </button>
+                <!-- 16. arrow-left -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="arrow-left"
+                >
+                  <img
+                    src="icons/arrow-left.png"
+                    data-light="icons/object_016.png"
+                    data-dark="icons/object_016_dark.png"
+                    alt="ArrowLeft"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-arrowLeft">Стрелка←</div>
+                </button>
+                <!-- 17. arrow-right -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="arrow-right"
+                >
+                  <img
+                    src="icons/arrow-right.png"
+                    data-light="icons/object_018.png"
+                    data-dark="icons/object_017_dark.png"
+                    alt="ArrowRight"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-arrowRight">Стрелка→</div>
+                </button>
+                <!-- 18. arrow-up -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="arrow-up"
+                >
+                  <img
+                    src="icons/arrow-up.png"
+                    data-light="icons/object_019.png"
+                    data-dark="icons/object_018_dark.png"
+                    alt="ArrowUp"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-arrowUp">Стрелка↑</div>
+                </button>
+                <!-- 19. arrow-down -->
+
+                <!-- 20. cross -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="cross"
+                >
+                  <img
+                    src="icons/cross.png"
+                    data-light="icons/object_017.png"
+                    data-dark="icons/object_019_dark.png"
+                    alt="Cross"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-cross">Крест</div>
+                </button>
+                <!-- 21. plus -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="plus"
+                >
+                  <img
+                    src="icons/plus.png"
+                    data-light="icons/object_023.png"
+                    data-dark="icons/object_023_dark.png"
+                    alt="Plus"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-plus">Плюс</div>
+                </button>
+                <!-- 22. heart -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="heart"
+                >
+                  <img
+                    src="icons/heart.png"
+                    data-light="icons/object_024.png"
+                    data-dark="icons/object_024_dark.png"
+                    alt="Heart"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-heart">Сердце</div>
+                </button>
+                <!-- 23. wave -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="wave"
+                >
+                  <img
+                    src="icons/wave.png"
+                    data-light="icons/object_025.png"
+                    data-dark="icons/object_025_dark.png"
+                    alt="Wave"
+                    class="mb-1"
+                    width="24"
+                    height="auto"
+                  />
+                  <div class="small lang-wave">Волна</div>
+                </button>
+                <!-- 24. shield -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="shield"
+                >
+                  <img
+                    src="icons/shield.png"
+                    data-light="icons/object_022.png"
+                    data-dark="icons/object_022_dark.png"
+                    alt="Shield"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-shield">Щит</div>
+                </button>
+                <!-- 25. frame -->
+
+                <!-- 26. chevron-left -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="chevron-left"
+                >
+                  <img
+                    src="icons/chevron-left.png"
+                    data-light="icons/object_021.png"
+                    data-dark="icons/object_021_dark.png"
+                    alt="ChevronLeft"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-chevronLeft">Шеврон←</div>
+                </button>
+                <!-- 27. chevron-right -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="chevron-right"
+                >
+                  <img
+                    src="icons/chevron-right.png"
+                    data-light="icons/object_026.png"
+                    data-dark="icons/object_026_dark.png"
+                    alt="ChevronRight"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-chevronRight">Шеврон→</div>
+                </button>
+                <!-- 28. chevron-up -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="chevron-up"
+                >
+                  <img
+                    src="icons/chevron-up.png"
+                    data-light="icons/object_029.png"
+                    data-dark="icons/object_030_dark.png"
+                    alt="ChevronUp"
+                    class="mb-1"
+                    width="24"
+                    height="auto"
+                  />
+                  <div class="small lang-chevronUp">Шеврон↑</div>
+                </button>
+                <!-- 29. chevron-down -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="chevron-down"
+                >
+                  <img
+                    src="icons/chevron-down.png"
+                    data-light="icons/object_030.png"
+                    data-dark="icons/object_029_dark.png"
+                    alt="ChevronDown"
+                    class="mb-1"
+                    width="24"
+                    height="auto"
+                  />
+                  <div class="small lang-chevronDown">Шеврон↓</div>
+                </button>
+                <!-- 30. cylinder -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="cylinder"
+                >
+                  <img
+                    src="icons/cylinder.png"
+                    data-light="icons/object_027.png"
+                    data-dark="icons/object_027_dark.png"
+                    alt="Cylinder"
+                    class="mb-1"
+                    width="24"
+                    height="auto"
+                  />
+                  <div class="small lang-cylinder">Цилиндр</div>
+                </button>
+                <!-- 31. ticket -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="ticket"
+                >
+                  <img
+                    src="icons/ticket.png"
+                    data-light="icons/object_033.png"
+                    data-dark="icons/object_033_dark.png"
+                    alt="Ticket"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-ticket">Билет</div>
+                </button>
+                <!-- 32. tag -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="tag"
+                >
+                  <img
+                    src="icons/tag.png"
+                    data-light="icons/object_032.png"
+                    data-dark="icons/object_032_dark.png"
+                    alt="Tag"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-tag">Тэг</div>
+                </button>
+                <!-- 33. drop -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="drop"
+                >
+                  <img
+                    src="icons/drop.png"
+                    data-light="icons/object_028.png"
+                    data-dark="icons/object_028_dark.png"
+                    alt="Drop"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-drop">Капля</div>
+                </button>
+                <!-- 34. diamond -->
+
+                <!-- 35. star10 -->
+                <button
+                  type="button"
+                  class="btn btn-light p-2"
+                  data-preset="star10"
+                >
+                  <img
+                    src="icons/star10.png"
+                    data-light="icons/object_031.png"
+                    data-dark="icons/object_031_dark.png"
+                    alt="Star10"
+                    class="mb-1"
+                    width="24"
+                    height="24"
+                  />
+                  <div class="small lang-star10">Звезда-10</div>
+                </button>
+              </div>
+
+              <div class="mb-3">
+                <label class="font-weight-bold lang-uploadImage"
+                  >Загрузка изображения:</label
+                >
+                <input
+                  type="file"
+                  id="imageUpload"
+                  accept="image/*"
+                  class="form-control-file"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label
+                  for="filterSelect"
+                  class="font-weight-bold lang-filterLabel"
+                >
+                  Готовые фильтры (CSS filter):
+                </label>
+                <select id="filterSelect" class="form-control mb-2">
+                  <option value="">Без фильтра</option>
+                  <option value="grayscale(50%)">Grayscale 50%</option>
+                  <option value="sepia(60%)">Sepia 60%</option>
+                  <option value="brightness(120%)">Яркость 120%</option>
+                  <option value="contrast(150%)">Контраст 150%</option>
+                  <option value="blur(3px)">Размытие 3px</option>
+                </select>
+                <input
+                  type="text"
+                  id="filterCustom"
+                  class="form-control lang-filterCustomPlaceholder"
+                  placeholder="Или введите свой filter, напр. blur(5px)"
+                />
+              </div>
+
+              <div class="d-flex gap-2 mb-3">
+                <button
+                  id="addPointBtn"
+                  type="button"
+                  class="btn btn-primary lang-addPoint"
+                >
+                  Добавить точку
+                </button>
+                <button
+                  id="removePointBtn"
+                  type="button"
+                  class="btn btn-danger lang-removePoint"
+                >
+                  Удалить точку
+                </button>
+                <button id="faqBtn" class="btn btn-info lang-faqButton">
+                  FAQ
+                </button>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2">
+                <div class="form-group mb-0">
+                  <label class="small mb-1 lang-selectedPointLabel">
+                    Точка #<span id="selectedPointIndex">-</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="small lang-coordX">X:</label>
+                  <input
+                    type="number"
+                    id="coordX"
+                    value="0"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="small lang-coordY">Y:</label>
+                  <input
+                    type="number"
+                    id="coordY"
+                    value="0"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая панель: Область редактирования и готовый CSS-код -->
+        <div class="col-lg-6 mb-4">
+          <div class="card shadow-sm mb-3">
+            <div class="card-body">
+              <h2 class="card-title h5 lang-editAreaTitle">
+                Область редактирования
+              </h2>
+              <div
+                class="image-area position-relative"
+                id="imageArea"
+                style="height: 400px; background-color: #eaeaea"
+              >
+                <img
+                  id="mainImage"
+                  alt="Ваше изображение"
+                  class="img-fluid w-100 h-100 lang-mainImageAlt"
+                  style="object-fit: contain"
+                  src="../img/04kTZ5mScqU.jpg"
+                />
+                <!-- Точки будут добавляться динамически -->
+              </div>
+            </div>
+          </div>
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title h5 lang-outputCssTitle">Готовый CSS-код</h2>
+              <textarea
+                id="outputCss"
+                class="form-control lang-outputCssPlaceholder"
+                rows="5"
+                readonly
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-4">
+      <div class="row description-block m-2">
+        <!-- Левая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title lang-descriptionTitle">
+            Описание: Конструктор Clip-Path
+          </h3>
+          <p class="description-text lang-descriptionText">
+            Конструктор Clip-Path предоставляет возможность создавать
+            нестандартные формы для элементов с помощью CSS-свойства clip-path.
+            Он позволяет легко экспериментировать с геометрическими и
+            произвольными контурами, выделяя отдельные участки изображения для
+            оригинального оформления.
+          </p>
+        </div>
+        <!-- Правая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title lang-goalsTitle">Цели и применение</h3>
+          <p class="description-text lang-goalsText">
+            Этот инструмент полезен для веб-дизайнеров и UI/UX-специалистов,
+            желающих добавить креативные и запоминающиеся элементы в макеты
+            сайтов и приложений. Его применение помогает создать уникальные
+            визуальные эффекты и подчеркнуть индивидуальность проекта.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-4">
+      <h2 class="text-center top-text mb-3 lang-toolsTitle">Мои инструменты</h2>
+      <div class="row">
+        <!-- Генератор оттенков -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color/color.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/image.png"
+                class="card-img-top"
+                alt="Генератор оттенков"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool1Title">Генератор оттенков</h5>
+                <p class="card-text lang-tool1Text">
+                  Этот инструмент позволяет генерировать разнообразные оттенки
+                  исходного цвета, что помогает подобрать гармоничные сочетания
+                  для ваших проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор CSS-градиентов -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/gradient/gradient.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-1.jpg"
+                class="card-img-top"
+                alt="Генератор CSS-градиентов"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool2Title">
+                  Генератор CSS-градиентов
+                </h5>
+                <p class="card-text lang-tool2Text">
+                  Создавайте плавные и элегантные градиенты, идеально подходящие
+                  для оформления сайтов и приложений, придавая им современный
+                  вид.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор CSS-фильтров -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/filter/filter.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-2.jpg"
+                class="card-img-top"
+                alt="Конструктор CSS-фильтров"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool3Title">
+                  Конструктор CSS-фильтров
+                </h5>
+                <p class="card-text lang-tool3Text">
+                  Применяйте широкий спектр CSS-фильтров для улучшения
+                  изображений и создания уникальных визуальных эффектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор Clip-Path -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/clip-path/clip-path.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-3.jpg"
+                class="card-img-top"
+                alt="Конструктор Clip-Path"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool4Title">
+                  Конструктор Clip-Path
+                </h5>
+                <p class="card-text lang-tool4Text">
+                  Экспериментируйте с формами с помощью clip-path, создавая
+                  оригинальные макеты и нестандартные дизайнерские решения.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер изображений в Base64 -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/base64/base64.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-4.jpg"
+                class="card-img-top"
+                alt="Конвертер изображений в Base64"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool5Title">
+                  Конвертер изображений в Base64
+                </h5>
+                <p class="card-text lang-tool5Text">
+                  Преобразуйте изображения в формат Base64, что упрощает их
+                  внедрение в веб-страницы без необходимости использования
+                  отдельных файлов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер в двухцветный трафарет -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color-2-stencil/color-2-stencil.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-5.jpg"
+                class="card-img-top"
+                alt="Конвертер в двухцветный трафарет"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool6Title">
+                  Конвертер в двухцветный трафарет
+                </h5>
+                <p class="card-text lang-tool6Text">
+                  Преобразуйте изображения в стильные двухцветные трафареты,
+                  идеально подходящие для печати и создания оригинальных
+                  дизайнерских проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер фотографии в рисунок точками -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/points/points.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-6.jpg"
+                class="card-img-top"
+                alt="Конвертер фотографии в рисунок точками"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool7Title">
+                  Конвертер фотографии в рисунок точками
+                </h5>
+                <p class="card-text lang-tool7Text">
+                  Превратите фотографию в произведение искусства, составленное
+                  из множества точек, для создания уникального визуального
+                  эффекта.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор QR-кода -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/QR‑Code/QR‑Code.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-7.jpg"
+                class="card-img-top"
+                alt="Генератор QR-кода"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool8Title">Генератор QR-кода</h5>
+                <p class="card-text lang-tool8Text">
+                  Создавайте QR-коды для быстрого обмена ссылками, контактами и
+                  другой важной информацией.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор ASCII-арта -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/ASCII/ASCII.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-8.jpg"
+                class="card-img-top"
+                alt="Генератор ASCII-арта"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool9Title">Генератор ASCII-арта</h5>
+                <p class="card-text lang-tool9Text">
+                  Преобразуйте изображения и текст в уникальное ASCII-искусство
+                  для создания оригинального визуального стиля.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Выделение объектов из фона -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/remove-bg/remove-bg.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-9.jpg"
+                class="card-img-top"
+                alt="Выделение объектов из фона"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool10Title">
+                  Выделение объектов из фона
+                </h5>
+                <p class="card-text lang-tool10Text">
+                  Автоматически разделите изображение со стикерами, удалите фон
+                  и сохраните каждый элемент как отдельное изображение для
+                  дальнейшей работы.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Modal для конструктора Clip-Path -->
+    <div
+      class="modal fade"
+      id="faqModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="faqModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title lang-faqModalTitle" id="faqModalLabel">
+              FAQ - Конструктор Clip-Path
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Закрыть"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="lang-faqModalBodyText">
+              Инструмент позволяет создавать уникальные формы с помощью
+              CSS-свойства clip-path.
+            </p>
+            <ul>
+              <li class="lang-faqItem1">
+                <strong class="lang-faqItem1Question"
+                  >Что такое clip-path?</strong
+                >
+                <span class="lang-faqItem1Answer">
+                  Это свойство обрезает элемент по заданной форме.
+                </span>
+              </li>
+              <li class="lang-faqItem2">
+                <strong class="lang-faqItem2Question"
+                  >Как применить форму?</strong
+                >
+                <span class="lang-faqItem2Answer">
+                  Сгенерированный CSS-код можно использовать непосредственно в
+                  вашем проекте.
+                </span>
+              </li>
+              <li class="lang-faqItem3">
+                <strong class="lang-faqItem3Question"
+                  >Можно ли сохранять пресеты?</strong
+                >
+                <span class="lang-faqItem3Answer">
+                  Да, настройки можно сохранять для повторного использования.
+                </span>
+              </li>
+              <li class="lang-faqItem4">
+                <strong class="lang-faqItem4Question"
+                  >Как настроить форму вручную?</strong
+                >
+                <span class="lang-faqItem4Answer">
+                  Вы можете изменять параметры для создания нестандартных
+                  контуров.
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary lang-closeButton"
+              data-dismiss="modal"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-4">
+      <div class="container text-center">
+        <p class="mb-0 lang-footerText">
+          &copy; 2025 Генератор CSS-градиентов. Все права защищены.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS и зависимости -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Пользовательский JS -->
+    <script src="clip-path.js"></script>
+    <script>
+      // Функция для определения системного языка
+      function detectSystemLanguage() {
+        const lang = navigator.language || navigator.userLanguage;
+        const lowerLang = lang.toLowerCase();
+        if (lowerLang.startsWith("ru")) {
+          return "ru";
+        } else if (lowerLang.startsWith("de")) {
+          return "de";
+        } else if (lowerLang.startsWith("it")) {
+          return "it";
+        } else if (lowerLang.startsWith("tr")) {
+          return "tr";
+        } else if (lowerLang.startsWith("es")) {
+          return "es";
+        } else if (lowerLang.startsWith("pl")) {
+          return "pl";
+        } else if (lowerLang.startsWith("fr")) {
+          return "fr";
+        } else if (lowerLang.startsWith("uk") || lowerLang.startsWith("ukr")) {
+          return "uk";
+        } else {
+          return "en";
+        }
+      }
+
+      // Получаем выбранный язык из localStorage или определяем по умолчанию
+      let currentLang = localStorage.getItem("lang") || detectSystemLanguage();
+      localStorage.setItem("lang", currentLang);
+
+      // Устанавливаем значение переключателя языка (если их несколько)
+      const langSwitchers = document.querySelectorAll(
+        "#langSwitcher, #langSwitcherBottom"
+      );
+      langSwitchers.forEach((switcher) => {
+        switcher.value = currentLang;
+        switcher.addEventListener("change", function () {
+          localStorage.setItem("lang", this.value);
+          currentLang = this.value;
+          applyTranslations(this.value);
+          // Обновляем все переключатели
+          langSwitchers.forEach((s) => (s.value = this.value));
+        });
+      });
+
+      // Функция для применения переводов из JSON ко всем элементам по классам
+      function applyTranslations(lang) {
+        fetch("../lang.json")
+          .then((response) => response.json())
+          .then((data) => {
+            // Ожидается, что переводы для данной страницы находятся в объекте "ClipPath"
+            const translations = data[lang].ClipPath;
+            Object.keys(translations).forEach((key) => {
+              const elements = document.querySelectorAll(".lang-" + key);
+              elements.forEach((el) => {
+                if (el.hasAttribute("placeholder")) {
+                  el.setAttribute("placeholder", translations[key]);
+                } else {
+                  el.textContent = translations[key];
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error("Ошибка загрузки переводов:", error);
+          });
+      }
+
+      // Применяем переводы при загрузке страницы
+      document.addEventListener("DOMContentLoaded", function () {
+        applyTranslations(currentLang);
+      });
+    </script>
+  </body>
+</html>

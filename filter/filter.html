@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title class="lang-title">Конструктор CSS‑фильтров</title>
+    <!-- Bootstrap CSS для минималистичного дизайна -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Пользовательский CSS -->
+    <link rel="stylesheet" href="filter.css" />
+  </head>
+  <body class="light-theme">
+    <!-- Header -->
+    <header class="container mb-4">
+      <div class="d-flex align-items-center">
+        <h1 class="header-text mb-0 lang-headerText">
+          Конструктор CSS‑фильтров
+        </h1>
+        <div class="ml-auto">
+          <div class="btn-group">
+            <select
+              id="langSwitcher"
+              class="form-control lang-langSwitcher"
+              style="width: auto; margin-right: 10px"
+            >
+              <option value="en">English</option>
+              <option value="ru" selected>Русский</option>
+              <option value="de">Deutsch</option>
+              <option value="it">Italiano</option>
+              <option value="tr">Türkçe</option>
+              <option value="es">Español</option>
+              <option value="pl">Polski</option>
+              <option value="fr">Français</option>
+              <option value="uk">Українська</option>
+            </select>
+
+            <button
+              type="button"
+              class="btn btn-danger dropdown-toggle btn-group-col lang-action"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Действие
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item lang-home" href="/index/index.html"
+                >Главная</a
+              >
+              <div class="dropdown-divider"></div>
+              <!-- <a class="dropdown-item" href="/palette/palette.html">Генератор цветовых палитр по фотографии</a> -->
+              <a
+                class="dropdown-item lang-colorGenerator"
+                href="/color/color.html"
+                >Генератор оттенков</a
+              >
+              <a
+                class="dropdown-item lang-cssGradientGenerator"
+                href="/gradient/gradient.html"
+                >Генератор CSS‑градиентов</a
+              >
+              <a
+                class="dropdown-item lang-filterConstructor"
+                href="/filter/filter.html"
+                >Конструктор CSS‑фильтров</a
+              >
+              <a
+                class="dropdown-item lang-clipPathConstructor"
+                href="/clip-path/clip-path.html"
+                >Конструктор Clip‑Path</a
+              >
+              <!--   <a
+                class="dropdown-item lang-fileConverter"
+                href="/file-converter/file-converter.html"
+                >Онлайн Конвертер Файлов</a
+              > -->
+              <a
+                class="dropdown-item lang-base64Converter"
+                href="/base64/base64.html"
+                >Конвертер изображений в Base64</a
+              >
+              <a
+                class="dropdown-item lang-stencilConverter"
+                href="/color-2-stencil/color-2-stencil.html"
+                >Конвертер в двухцветный трафарет</a
+              >
+              <a
+                class="dropdown-item lang-pointConverter"
+                href="/points/points.html"
+                >Конвертер фотографии в рисунок точками</a
+              >
+              <a
+                class="dropdown-item lang-qrCodeGenerator"
+                href="/QR‑Code/QR‑Code.html"
+                >Генератор QR‑кода</a
+              >
+              <a
+                class="dropdown-item lang-asciiGenerator"
+                href="/ASCII/ASCII.html"
+                >Генератор ASCII‑арта</a
+              >
+              <a
+                class="dropdown-item lang-backgroundRemoval"
+                href="/remove-bg/remove-bg.html"
+                >Выделение объектов из фона</a
+              >
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item lang-separatedLink" href="#"
+                >Отделенная ссылка</a
+              >
+            </div>
+          </div>
+          <button
+            id="themeToggle"
+            class="btn btn-outline-primary ml-2 lang-toggleTheme"
+          >
+            Сменить тему
+          </button>
+        </div>
+      </div>
+    </header>
+    <!-- Основной контент -->
+    <div class="container">
+      <!-- Блок пресетов -->
+      <div class="row mb-3">
+        <div class="col-12">
+          <h3 class="lang-presetsTitle">Пресеты фильтров:</h3>
+          <button id="faqBtn" class="btn btn-info mb-2 lang-faqButton">
+            FAQ
+          </button>
+          <div id="presetsContainer" class="d-flex flex-wrap">
+            <!-- Кнопки пресетов (каждая со своим классом lang-presetXxx) -->
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetStandard"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Стандарт')"
+            >
+              Стандарт
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetSepia"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Сепия')"
+            >
+              Сепия
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetBW"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Черно-белый')"
+            >
+              Черно-белый
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetBright"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Яркий')"
+            >
+              Яркий
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetSoft"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Мягкий')"
+            >
+              Мягкий
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetNight"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Ночной')"
+            >
+              Ночной
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetCold"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Холодный')"
+            >
+              Холодный
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetWarm"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Тёплый')"
+            >
+              Тёплый
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetRetro"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Ретро')"
+            >
+              Ретро
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetCinema"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Кинематограф')"
+            >
+              Кинематограф
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetLightHaze"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Светлая дымка')"
+            >
+              Светлая дымка
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetMonochrome"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Монохром')"
+            >
+              Монохром
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetGlossy"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Глянцевый')"
+            >
+              Глянцевый
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetVintage"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Винтаж')"
+            >
+              Винтаж
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetPastel"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Пастель')"
+            >
+              Пастель
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetHarsh"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Суровый')"
+            >
+              Суровый
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetMovieEffect"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Эффект кино')"
+            >
+              Эффект кино
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetGlare"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Сияние')"
+            >
+              Сияние
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetFog"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Туман')"
+            >
+              Туман
+            </button>
+            <button
+              class="btn btn-sm mr-2 mb-2 lang-presetWatercolor"
+              style="
+                background-color: var(--accent-color);
+                color: #fff;
+                border: none;
+              "
+              onclick="applyPreset('Акварель')"
+            >
+              Акварель
+            </button>
+          </div>
+          <div id="presetsContainer" class="d-flex flex-wrap"></div>
+        </div>
+      </div>
+      <!-- Слайдеры (8 слайдеров, 2 строки по 4) -->
+      <div class="row mb-4">
+        <!-- Grayscale -->
+        <div class="col-md-3 mb-3">
+          <label
+            for="grayscaleRange"
+            class="font-weight-bold lang-grayscaleLabel"
+            >Оттенки серого:</label
+          >
+          <input
+            type="range"
+            class="form-control-range"
+            id="grayscaleRange"
+            min="0"
+            max="100"
+            value="0"
+          />
+          <span class="value" id="grayscaleValue">0%</span>
+        </div>
+        <!-- Sepia -->
+        <div class="col-md-3 mb-3">
+          <label for="sepiaRange" class="font-weight-bold lang-sepiaLabel"
+            >Сепия:</label
+          >
+          <input
+            type="range"
+            class="form-control-range"
+            id="sepiaRange"
+            min="0"
+            max="100"
+            value="0"
+          />
+          <span class="value" id="sepiaValue">0%</span>
+        </div>
+        <!-- Blur -->
+        <div class="col-md-3 mb-3">
+          <label for="blurRange" class="font-weight-bold lang-blurLabel"
+            >Размытие:</label
+          >
+          <input
+            type="range"
+            class="form-control-range"
+            id="blurRange"
+            min="0"
+            max="100"
+            value="0"
+          />
+          <span class="value" id="blurValue">0px</span>
+        </div>
+        <!-- Brightness -->
+        <div class="col-md-3 mb-3">
+          <label
+            for="brightnessRange"
+            class="font-weight-bold lang-brightnessLabel"
+            >Яркость:</label
+          >
+          <input
+            type="range"
+            class="form-control-range"
+            id="brightnessRange"
+            min="0"
+            max="200"
+            value="100"
+          />
+          <span class="value" id="brightnessValue">100%</span>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <!-- Hue Rotate -->
+        <div class="col-md-3 mb-3">
+          <label for="hueRange" class="font-weight-bold lang-hueLabel"
+            >Цветность:</label
+          >
+          <input
+            type="range"
+            class="form-control-range"
+            id="hueRange"
+            min="0"
+            max="360"
+            value="0"
+          />
+          <span class="value" id="hueValue">0deg</span>
+        </div>
+        <!-- Saturate -->
+        <div class="col-md-3 mb-3">
+          <label for="saturateRange" class="font-weight-bold lang-saturateLabel"
+            >Насыщенность:</label
+          >
+          <input
+            type="range"
+            class="form-control-range"
+            id="saturateRange"
+            min="0"
+            max="1000"
+            value="100"
+          />
+          <span class="value" id="saturateValue">100%</span>
+        </div>
+        <!-- Contrast -->
+        <div class="col-md-3 mb-3">
+          <label for="contrastRange" class="font-weight-bold lang-contrastLabel"
+            >Контрастность:</label
+          >
+          <input
+            type="range"
+            class="form-control-range"
+            id="contrastRange"
+            min="0"
+            max="1000"
+            value="100"
+          />
+          <span class="value" id="contrastValue">100%</span>
+        </div>
+        <!-- Invert -->
+        <div class="col-md-3 mb-3">
+          <label for="invertRange" class="font-weight-bold lang-invertLabel"
+            >Инвертирование:</label
+          >
+          <input
+            type="range"
+            class="form-control-range"
+            id="invertRange"
+            min="0"
+            max="100"
+            value="0"
+          />
+          <span class="value" id="invertValue">0%</span>
+        </div>
+      </div>
+      <!-- Превью изображений -->
+      <div class="row">
+        <!-- Исходное изображение -->
+        <div class="col-md-6 mb-4">
+          <div class="preview-container">
+            <h2 class="lang-originalImageTitle">Исходное изображение</h2>
+            <img
+              id="originalImage"
+              src="../img/04bf743c99c1943fb816d96d342416a6.jpg"
+              alt="Исходное изображение"
+              class="lang-originalImageAlt"
+            />
+          </div>
+        </div>
+        <!-- Отфильтрованное изображение -->
+        <div class="col-md-6 mb-4">
+          <div class="preview-container">
+            <h2 class="lang-previewImageTitle">Отфильтрованное изображение</h2>
+            <img
+              id="previewImage"
+              src="../img/04bf743c99c1943fb816d96d342416a6.jpg"
+              alt="Превью изображения"
+              class="lang-previewImageAlt"
+            />
+            <div class="buttons mt-3">
+              <button
+                id="uploadPhoto"
+                class="btn btn-primary lang-uploadPhotoBtn"
+              >
+                Загрузить фотографию
+              </button>
+              <button id="savePhoto" class="btn btn-success lang-savePhotoBtn">
+                Сохранить фотографию
+              </button>
+              <button id="copyCSS" class="btn btn-secondary lang-copyCSSBtn">
+                Добавить в буфер CSS
+              </button>
+            </div>
+            <div class="css-code mt-3">
+              <textarea
+                id="filterCSS"
+                class="lang-filterCSSPlaceholder"
+                readonly
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Описание и цели -->
+    <div class="container my-4">
+      <div class="row description-block m-2">
+        <!-- Левая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title lang-descriptionTitle">
+            Описание: Конвертер в двухцветный трафарет
+          </h3>
+          <p class="description-text lang-descriptionText">
+            Инструмент преобразует цветное изображение в контрастный двухцветный
+            трафарет, сохраняя его основные контуры и детали. Такой эффект
+            позволяет создать уникальный визуальный стиль, который выделяет
+            изображение на фоне стандартных фотографий.
+          </p>
+        </div>
+        <!-- Правая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title lang-goalsTitle">Цели и применение</h3>
+          <p class="description-text lang-goalsText">
+            Данный конвертер применяется в печати, создании рекламных плакатов и
+            уникальных дизайнерских работ. Он помогает дизайнерам и
+            иллюстраторам экспериментировать с визуальными эффектами, добавляя
+            глубину и оригинальность в проекты.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Блок "Мои инструменты" -->
+
+    <div class="container my-4">
+      <h2 class="text-center top-text mb-3 lang-toolsTitle">Мои инструменты</h2>
+      <div class="row">
+        <!-- Генератор оттенков -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color/color.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/image.png"
+                class="card-img-top"
+                alt="Генератор оттенков"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool1Title">Генератор оттенков</h5>
+                <p class="card-text lang-tool1Text">
+                  Этот инструмент позволяет генерировать разнообразные оттенки
+                  исходного цвета, что помогает подобрать гармоничные сочетания
+                  для ваших проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор CSS-градиентов -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/gradient/gradient.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-1.jpg"
+                class="card-img-top"
+                alt="Генератор CSS-градиентов"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool2Title">
+                  Генератор CSS-градиентов
+                </h5>
+                <p class="card-text lang-tool2Text">
+                  Создавайте плавные и элегантные градиенты, идеально подходящие
+                  для оформления сайтов и приложений, придавая им современный
+                  вид.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор CSS-фильтров -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/filter/filter.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-2.jpg"
+                class="card-img-top"
+                alt="Конструктор CSS-фильтров"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool3Title">
+                  Конструктор CSS-фильтров
+                </h5>
+                <p class="card-text lang-tool3Text">
+                  Применяйте широкий спектр CSS-фильтров для улучшения
+                  изображений и создания уникальных визуальных эффектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор Clip-Path -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/clip-path/clip-path.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-3.jpg"
+                class="card-img-top"
+                alt="Конструктор Clip-Path"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool4Title">
+                  Конструктор Clip-Path
+                </h5>
+                <p class="card-text lang-tool4Text">
+                  Экспериментируйте с формами с помощью clip-path, создавая
+                  оригинальные макеты и нестандартные дизайнерские решения.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер изображений в Base64 -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/base64/base64.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-4.jpg"
+                class="card-img-top"
+                alt="Конвертер изображений в Base64"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool5Title">
+                  Конвертер изображений в Base64
+                </h5>
+                <p class="card-text lang-tool5Text">
+                  Преобразуйте изображения в формат Base64, что упрощает их
+                  внедрение в веб-страницы без необходимости использования
+                  отдельных файлов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер в двухцветный трафарет -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color-2-stencil/color-2-stencil.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-5.jpg"
+                class="card-img-top"
+                alt="Конвертер в двухцветный трафарет"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool6Title">
+                  Конвертер в двухцветный трафарет
+                </h5>
+                <p class="card-text lang-tool6Text">
+                  Преобразуйте изображения в стильные двухцветные трафареты,
+                  идеально подходящие для печати и создания оригинальных
+                  дизайнерских проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер фотографии в рисунок точками -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/points/points.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-6.jpg"
+                class="card-img-top"
+                alt="Конвертер фотографии в рисунок точками"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool7Title">
+                  Конвертер фотографии в рисунок точками
+                </h5>
+                <p class="card-text lang-tool7Text">
+                  Превратите фотографию в произведение искусства, составленное
+                  из множества точек, для создания уникального визуального
+                  эффекта.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор QR-кода -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/QR‑Code/QR‑Code.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-7.jpg"
+                class="card-img-top"
+                alt="Генератор QR-кода"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool8Title">Генератор QR-кода</h5>
+                <p class="card-text lang-tool8Text">
+                  Создавайте QR-коды для быстрого обмена ссылками, контактами и
+                  другой важной информацией.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор ASCII-арта -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/ASCII/ASCII.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-8.jpg"
+                class="card-img-top"
+                alt="Генератор ASCII-арта"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool9Title">Генератор ASCII-арта</h5>
+                <p class="card-text lang-tool9Text">
+                  Преобразуйте изображения и текст в уникальное ASCII-искусство
+                  для создания оригинального визуального стиля.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Выделение объектов из фона -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/remove-bg/remove-bg.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-9.jpg"
+                class="card-img-top"
+                alt="Выделение объектов из фона"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool10Title">
+                  Выделение объектов из фона
+                </h5>
+                <p class="card-text lang-tool10Text">
+                  Автоматически разделите изображение со стикерами, удалите фон
+                  и сохраните каждый элемент как отдельное изображение для
+                  дальнейшей работы.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Modal для Конструктора CSS‑фильтров -->
+    <div
+      class="modal fade"
+      id="faqModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="faqModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title lang-faqModalTitle" id="faqModalLabel">
+              FAQ - Конструктор CSS‑фильтров
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Закрыть"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="lang-faqModalBodyText">
+              Инструмент позволяет применять и настраивать различные CSS‑фильтры
+              для улучшения визуального вида изображений.
+            </p>
+            <ul>
+              <li class="lang-faqItem1">
+                <strong class="lang-faqItem1Question"
+                  >Какие фильтры доступны?</strong
+                >
+                <span class="lang-faqItem1Answer">
+                  Можно настроить яркость, контраст, размытие, оттенки серого,
+                  сепию и другие эффекты.
+                </span>
+              </li>
+              <li class="lang-faqItem2">
+                <strong class="lang-faqItem2Question"
+                  >Как регулируются параметры?</strong
+                >
+                <span class="lang-faqItem2Answer">
+                  Используйте слайдеры для точной настройки каждого фильтра.
+                </span>
+              </li>
+              <li class="lang-faqItem3">
+                <strong class="lang-faqItem3Question"
+                  >Можно ли комбинировать фильтры?</strong
+                >
+                <span class="lang-faqItem3Answer">
+                  Да, можно применять несколько фильтров одновременно для
+                  создания сложных эффектов.
+                </span>
+              </li>
+              <li class="lang-faqItem4">
+                <strong class="lang-faqItem4Question"
+                  >Как использовать результат?</strong
+                >
+                <span class="lang-faqItem4Answer">
+                  Полученный CSS‑код можно скопировать и внедрить в ваш проект.
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary lang-closeButton"
+              data-dismiss="modal"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-4">
+      <div class="container text-center">
+        <p class="mb-0 lang-footerText">
+          &copy; 2025 Конструктор CSS‑фильтров. Все права защищены.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Подключение Bootstrap JS и зависимостей -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Пользовательский JS -->
+    <script src="filter.js" defer></script>
+    <script>
+      // Функция для определения системного языка
+      function detectSystemLanguage() {
+        const lang = navigator.language || navigator.userLanguage;
+        const lowerLang = lang.toLowerCase();
+        if (lowerLang.startsWith("ru")) {
+          return "ru";
+        } else if (lowerLang.startsWith("de")) {
+          return "de";
+        } else if (lowerLang.startsWith("it")) {
+          return "it";
+        } else if (lowerLang.startsWith("tr")) {
+          return "tr";
+        } else if (lowerLang.startsWith("es")) {
+          return "es";
+        } else if (lowerLang.startsWith("pl")) {
+          return "pl";
+        } else if (lowerLang.startsWith("fr")) {
+          return "fr";
+        } else if (lowerLang.startsWith("uk") || lowerLang.startsWith("ukr")) {
+          return "uk";
+        } else {
+          return "en";
+        }
+      }
+
+      // Получаем выбранный язык из localStorage или определяем по умолчанию
+      let currentLang = localStorage.getItem("lang") || detectSystemLanguage();
+      localStorage.setItem("lang", currentLang);
+      // Устанавливаем значение переключателя языка (если их несколько)
+      const langSwitchers = document.querySelectorAll(
+        "#langSwitcher, #langSwitcherBottom"
+      );
+      langSwitchers.forEach((switcher) => {
+        switcher.value = currentLang;
+        switcher.addEventListener("change", function () {
+          localStorage.setItem("lang", this.value);
+          currentLang = this.value;
+          applyTranslations(this.value);
+          // Обновляем все переключатели
+          langSwitchers.forEach((s) => (s.value = this.value));
+        });
+      });
+      // Функция для применения переводов из JSON ко всем элементам по классам
+      function applyTranslations(lang) {
+        fetch("../lang.json")
+          .then((response) => response.json())
+          .then((data) => {
+            // Ожидается, что переводы для данной страницы находятся в объекте "Filter"
+            const translations = data[lang].Filter;
+            Object.keys(translations).forEach((key) => {
+              const elements = document.querySelectorAll(".lang-" + key);
+              elements.forEach((el) => {
+                if (el.hasAttribute("placeholder")) {
+                  el.setAttribute("placeholder", translations[key]);
+                } else {
+                  el.textContent = translations[key];
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error("Ошибка загрузки переводов:", error);
+          });
+      }
+      // Применяем переводы при загрузке страницы
+      document.addEventListener("DOMContentLoaded", function () {
+        applyTranslations(currentLang);
+      });
+    </script>
+  </body>
+</html>

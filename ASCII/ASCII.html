@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title class="lang-title">Генератор ASCII-арта</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS для минималистичного дизайна -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Пользовательский CSS -->
+    <link rel="stylesheet" href="ASCII.css" />
+  </head>
+  <body>
+    <!-- Навигационная панель с переключателем темы -->
+    <header class="container mb-4">
+      <div class="d-flex align-items-center">
+        <h1 class="header-text mb-0 lang-headerText">Генератор ASCII-арта</h1>
+        <div class="ml-auto">
+          <div class="btn-group">
+            <select
+              id="langSwitcher"
+              class="form-control lang-langSwitcher"
+              style="width: auto; margin-right: 10px"
+            >
+              <option value="en">English</option>
+              <option value="ru" selected>Русский</option>
+              <option value="de">Deutsch</option>
+              <option value="it">Italiano</option>
+              <option value="tr">Türkçe</option>
+              <option value="es">Español</option>
+              <option value="pl">Polski</option>
+              <option value="fr">Français</option>
+              <option value="uk">Українська</option>
+            </select>
+
+            <button
+              type="button"
+              class="btn btn-danger dropdown-toggle btn-group-col lang-action"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Действие
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item lang-home" href="/index/index.html"
+                >Главная</a
+              >
+              <div class="dropdown-divider"></div>
+              <a
+                class="dropdown-item lang-shadeGenerator"
+                href="/color/color.html"
+              >
+                Генератор оттенков
+              </a>
+              <a
+                class="dropdown-item lang-cssGradientGenerator"
+                href="/gradient/gradient.html"
+              >
+                Генератор CSS-градиентов
+              </a>
+              <a
+                class="dropdown-item lang-cssFilterConstructor"
+                href="/filter/filter.html"
+              >
+                Конструктор CSS-фильтров
+              </a>
+              <a
+                class="dropdown-item lang-clipPathConstructor"
+                href="/clip-path/clip-path.html"
+              >
+                Конструктор Clip-Path
+              </a>
+              <a
+                class="dropdown-item lang-fileConverter"
+                href="/file-converter/file-converter.html"
+              >
+                Онлайн Конвертер Файлов
+              </a>
+              <a
+                class="dropdown-item lang-base64Converter"
+                href="/base64/base64.html"
+              >
+                Конвертер изображений в Base64
+              </a>
+              <a
+                class="dropdown-item lang-bicolorStencilConverter"
+                href="/color-2-stencil/color-2-stencil.html"
+              >
+                Конвертер в двухцветный трафарет
+              </a>
+              <a
+                class="dropdown-item lang-pointConverter"
+                href="/points/points.html"
+              >
+                Конвертер фотографии в рисунок точками
+              </a>
+              <a
+                class="dropdown-item lang-qrCodeGenerator"
+                href="/QR‑Code/QR‑Code.html"
+              >
+                Генератор QR-кода
+              </a>
+              <a
+                class="dropdown-item lang-asciiGenerator"
+                href="/ASCII/ASCII.html"
+              >
+                Генератор ASCII-арта
+              </a>
+              <a
+                class="dropdown-item lang-backgroundRemoval"
+                href="/remove-bg/remove-bg.html"
+              >
+                Выделение объектов из фона
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item lang-separatedLink" href="#"
+                >Отделенная ссылка</a
+              >
+            </div>
+          </div>
+          <button
+            id="themeToggle"
+            class="btn btn-outline-primary ml-2 lang-toggleTheme"
+          >
+            Сменить тему
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="container my-4">
+      <!-- 1. Загрузка изображения -->
+      <div class="section upload-section mb-4 p-4">
+        <h2 class="text-center lang-uploadImageTitle">
+          1. Загрузка изображения
+        </h2>
+        <button id="faqBtn" class="btn btn-info mb-2 lang-faqButton">
+          FAQ
+        </button>
+        <div class="form-group">
+          <input
+            type="file"
+            id="fileInput"
+            class="form-control-file"
+            accept="image/jpeg, image/png, image/gif, image/bmp"
+          />
+        </div>
+        <div id="dropZone" class="text-center p-3 mb-3 lang-dropZone">
+          Перетащите изображение сюда
+        </div>
+        <div class="form-group">
+          <label for="resizeSlider" class="lang-resizeLabel">
+            Изменить размер изображения (% от выбранного разрешения):
+          </label>
+          <input
+            type="range"
+            id="resizeSlider"
+            class="custom-range"
+            min="10"
+            max="200"
+            value="100"
+          />
+          <span id="resizeValue">100%</span>
+        </div>
+      </div>
+
+      <!-- 2. Настройки преобразования -->
+      <div class="section settings-section mb-4 p-4">
+        <h2 class="text-center lang-settingsTitle">
+          2. Настройки преобразования
+        </h2>
+        <div class="form-group">
+          <label for="resolutionSelect" class="lang-resolutionLabel">
+            Разрешение ASCII-арта:
+          </label>
+          <select id="resolutionSelect" class="form-control">
+            <option value="25">25x25</option>
+            <option value="30">30x30</option>
+            <option value="40">40x40</option>
+            <option value="50">50x50</option>
+            <option value="100">100x100</option>
+            <option value="150">150x150</option>
+            <option value="200">200x200</option>
+            <option value="250" selected>250x250</option>
+            <option value="300">300x300</option>
+            <option value="350">350x350</option>
+            <option value="400">400x400</option>
+            <option value="450">450x450</option>
+            <option value="500">500x500</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="asciiSetSelect" class="lang-asciiSetLabel">
+            Символы ASCII:
+          </label>
+          <select id="asciiSetSelect" class="form-control">
+            <option class="lang-asciiOptionStandard" value="@#%*+=-:. ">
+              Стандартный (@#%*+=-:. )
+            </option>
+            <option
+              class="lang-asciiOptionAll"
+              value="@#%*+=-:.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюяΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω0123456789!@#$%^&*()_+-=[]{}|;:',.>/?ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝàáâãäåæçèéêëìíîïðñòóôõöøùúûüý┌┬┐<├┼┤"
+            >
+              Все символы (объединённый набор)
+            </option>
+            <option class="lang-asciiOptionPseudographics" value="┌┬┐├┼┤">
+              Псевдографика
+            </option>
+            <option class="lang-asciiOptionDigits" value="0123456789">
+              цифры(0123456789)
+            </option>
+            <option class="lang-asciiOption1" value=".-:;i1tfLCG08@">
+              Символы 1 (.-:;i1tfLCG08@)
+            </option>
+            <option class="lang-asciiOption2" value="@&amp;%$#">
+              Символы 2 (@&amp;%$#)
+            </option>
+            <option class="lang-asciiOption3" value="@W#*oahkbdpqwm">
+              Символы 3 (@W#*oahkbdpqwm)
+            </option>
+            <option
+              class="lang-asciiOption4"
+              value="$@B%8&amp;WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/&#92;|()1{}[]?-_+~&lt;&gt;i!lI;:,.'"
+            >
+              Символы 4
+              ($@B%8&amp;WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/&#92;|()1{}[]?-_+~&lt;&gt;i!lI;:,.')
+            </option>
+            <option class="lang-asciiOption5" value=".:,;i1tfLCG08@">
+              Символы 5 (.:,;i1tfLCG08@)
+            </option>
+            <option class="lang-asciiOption6" value="#@&amp;$*+">
+              Символы 6 (#@&amp;$*+)
+            </option>
+            <option class="lang-asciiOption7" value="@%#*+=-:. ">
+              Символы 7 (@%#*+=-:. )
+            </option>
+            <option class="lang-asciiOption8" value="@#$%?*+.">
+              Символы 8 (@#$%?*+.)
+            </option>
+            <option class="lang-asciiOption9" value="-_. ">
+              Символы 9 (-_. )
+            </option>
+            <option
+              class="lang-asciiOptionLatin"
+              value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+            >
+              Латинские буквы (оба регистра)
+            </option>
+            <option
+              class="lang-asciiOptionCyrillic"
+              value="АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+            >
+              Кириллические буквы (оба регистра)
+            </option>
+            <option
+              class="lang-asciiOptionGreek"
+              value="ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω"
+            >
+              Греческие буквы (оба регистра)
+            </option>
+            <option
+              class="lang-asciiOptionLatinDigits"
+              value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+            >
+              Латиница и цифры
+            </option>
+            <option
+              class="lang-asciiOptionCyrillicDigits"
+              value="АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя0123456789"
+            >
+              Кириллица и цифры
+            </option>
+            <option
+              class="lang-asciiOptionSpecialLatin"
+              value="!@#$%^&*()_+-=[]{}|;:',.<>/?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+            >
+              Спецсимволы и латиница
+            </option>
+            <option
+              class="lang-asciiOptionMixedLatin"
+              value="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
+            >
+              Смешанный латинский (чередование)
+            </option>
+            <option
+              class="lang-asciiOptionMixedCyrillic"
+              value="АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя"
+            >
+              Смешанная кириллица (чередование)
+            </option>
+            <option
+              class="lang-asciiOptionMixed"
+              value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя0123456789"
+            >
+              Смешанный набор (латиница, кириллица, цифры)
+            </option>
+            <option
+              class="lang-asciiOptionLatinSpecial"
+              value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()"
+            >
+              Латиница и спецсимволы (оба регистра)
+            </option>
+            <option
+              class="lang-asciiOptionCyrillicSpecial"
+              value="АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя!@#$%^&*()"
+            >
+              Кириллица и спецсимволы (оба регистра)
+            </option>
+            <option
+              class="lang-asciiOptionGreekDigits"
+              value="ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω0123456789"
+            >
+              Греческие буквы и цифры (оба регистра)
+            </option>
+            <option
+              class="lang-asciiOptionAllSpecial"
+              value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя!@#$%^&*()"
+            >
+              Латиница, кириллица и спецсимволы (оба регистра)
+            </option>
+            <option class="lang-asciiOptionMinimalLatin" value="AaBbCcDdEeFf">
+              Минимальный латинский набор (чередование)
+            </option>
+            <option
+              class="lang-asciiOptionExtendedLatin"
+              value="ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝàáâãäåæçèéêëìíîïðñòóôõöøùúûüý"
+            >
+              Расширенный латинский набор с диакритикой (оба регистра)
+            </option>
+            <option
+              class="lang-asciiOptionDigitsSpecial"
+              value="0123456789!@#$%^&*()-_=+[]{}"
+            >
+              Цифры и спецсимволы
+            </option>
+            <option
+              class="lang-asciiOptionAlternateLatin"
+              value="A!aB@bC#cD$dE%e"
+            >
+              Латинский алфавит с чередующимися спецсимволами
+            </option>
+            <option
+              class="lang-asciiOptionCombined"
+              value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюяΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω0123456789!@#$%^&*()"
+            >
+              Комбинированный набор (латиница, кириллица, греческие, цифры,
+              спецсимволы)
+            </option>
+            <option
+              class="lang-asciiOptionPseudographicsLetters"
+              value="┌┬┐AaБб├┼┤"
+            >
+              Набор псевдографики с буквами (латиница и кириллица)
+            </option>
+            <option class="lang-asciiOptionCustom" value="">
+              Кастомные...
+            </option>
+          </select>
+        </div>
+        <div class="form-group" id="customAsciiContainer" style="display: none">
+          <input
+            type="text"
+            id="customAsciiInput"
+            class="form-control lang-customAsciiInput"
+            placeholder="Введите кастомные символы"
+          />
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="colorAscii" class="form-check-input" />
+          <label class="form-check-label lang-colorAscii" for="colorAscii">
+            Цветной ASCII-арт (ANSI)
+          </label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="invertColors" class="form-check-input" />
+          <label class="form-check-label lang-invertColors" for="invertColors">
+            Инверсия цветов
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            type="checkbox"
+            id="htmlOutput"
+            class="form-check-input no-act"
+            checked
+          />
+          <label
+            class="form-check-label no-act lang-htmlOutput"
+            for="htmlOutput"
+          >
+            Генерация ASCII в HTML (&lt;pre&gt;)
+          </label>
+        </div>
+        <div class="form-group mt-3">
+          <label for="fontSelect" class="lang-fontSelectLabel"
+            >Выбор шрифта:</label
+          >
+          <select id="fontSelect" class="form-control">
+            <option class="lang-fontOptionMonospace" value="monospace" selected>
+              Monospace
+            </option>
+            <option class="lang-fontOptionCourier" value="Courier New">
+              Courier New
+            </option>
+            <option class="lang-fontOptionConsolas" value="Consolas">
+              Consolas
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fontSizeInput" class="lang-fontSizeLabel">
+            Размер шрифта (px):
+          </label>
+          <input
+            type="range"
+            id="fontSizeInput"
+            class="custom-range"
+            min="2"
+            max="72"
+            value="7"
+          />
+          <span id="fontSizeValue">7px</span>
+        </div>
+        <div class="form-group">
+          <label for="imageUrlInput" class="lang-loadViaLinkLabel">
+            Загрузить через ссылку/API:
+          </label>
+          <div class="input-group">
+            <input
+              type="text"
+              id="imageUrlInput"
+              class="form-control lang-imageUrlPlaceholder"
+              placeholder="Введите URL изображения"
+            />
+            <div class="input-group-append">
+              <button
+                id="loadUrlButton"
+                class="btn btn-primary lang-loadButton"
+              >
+                Загрузить
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Превью оригинального изображения -->
+      <div class="section preview-section mb-4 p-4 text-center">
+        <h2 class="lang-previewTitle">3. Превью оригинального изображения</h2>
+        <canvas id="imageCanvas" style="display: none"></canvas>
+        <img
+          id="imagePreview"
+          src="../img/19780244.jpg"
+          alt="Превью изображения"
+          class="img-fluid mx-auto d-block lang-imageAlt"
+          style="max-width: auto"
+        />
+      </div>
+
+      <!-- 4. Результат ASCII-арта -->
+      <div class="section result-section mb-4 p-4">
+        <h2 class="text-center lang-resultTitle">4. Результат ASCII-арта</h2>
+        <pre
+          id="asciiResult"
+          class="font-monospace"
+          style="font-family: monospace"
+        ></pre>
+        <div class="text-center">
+          <button id="copyButton" class="btn btn-secondary lang-copyButton">
+            Копировать в буфер
+          </button>
+          <button
+            id="downloadButton"
+            class="btn btn-secondary lang-downloadButton"
+          >
+            Скачать TXT
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-4">
+      <div class="row description-block m-2">
+        <!-- Левая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title lang-descriptionTitle">
+            Описание: Генератор ASCII-арта
+          </h3>
+          <p class="description-text lang-descriptionText">
+            Генератор ASCII-арта преобразует изображения и текст в уникальные
+            композиции, составленные из символов ASCII. Этот инструмент
+            позволяет создать оригинальное оформление в ретро-стиле, добавляя
+            изюминку и неповторимый шарм вашим визуальным материалам.
+          </p>
+        </div>
+        <!-- Правая колонка -->
+        <div class="col-md-6">
+          <h3 class="description-title lang-goalsTitle">Цели и применение</h3>
+          <p class="description-text lang-goalsText">
+            Применяйте его для оформления блогов, создания креативных постеров и
+            нестандартных дизайнерских проектов. Инструмент подходит для
+            художников и дизайнеров, стремящихся добавить в свои работы элемент
+            ностальгии и оригинальности.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-4">
+      <h2 class="text-center top-text mb-3 lang-toolsTitle">Мои инструменты</h2>
+      <div class="row">
+        <!-- Генератор оттенков -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color/color.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/image.png"
+                class="card-img-top"
+                alt="Генератор оттенков"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool1Title">Генератор оттенков</h5>
+                <p class="card-text lang-tool1Text">
+                  Этот инструмент позволяет генерировать разнообразные оттенки
+                  исходного цвета, что помогает подобрать гармоничные сочетания
+                  для ваших проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор CSS-градиентов -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/gradient/gradient.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-1.jpg"
+                class="card-img-top"
+                alt="Генератор CSS-градиентов"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool2Title">
+                  Генератор CSS-градиентов
+                </h5>
+                <p class="card-text lang-tool2Text">
+                  Создавайте плавные и элегантные градиенты, идеально подходящие
+                  для оформления сайтов и приложений, придавая им современный
+                  вид.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор CSS-фильтров -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/filter/filter.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-2.jpg"
+                class="card-img-top"
+                alt="Конструктор CSS-фильтров"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool3Title">
+                  Конструктор CSS-фильтров
+                </h5>
+                <p class="card-text lang-tool3Text">
+                  Применяйте широкий спектр CSS-фильтров для улучшения
+                  изображений и создания уникальных визуальных эффектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конструктор Clip-Path -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/clip-path/clip-path.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-3.jpg"
+                class="card-img-top"
+                alt="Конструктор Clip-Path"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool4Title">
+                  Конструктор Clip-Path
+                </h5>
+                <p class="card-text lang-tool4Text">
+                  Экспериментируйте с формами с помощью clip-path, создавая
+                  оригинальные макеты и нестандартные дизайнерские решения.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер изображений в Base64 -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/base64/base64.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-4.jpg"
+                class="card-img-top"
+                alt="Конвертер изображений в Base64"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool5Title">
+                  Конвертер изображений в Base64
+                </h5>
+                <p class="card-text lang-tool5Text">
+                  Преобразуйте изображения в формат Base64, что упрощает их
+                  внедрение в веб-страницы без необходимости использования
+                  отдельных файлов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер в двухцветный трафарет -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/color-2-stencil/color-2-stencil.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-5.jpg"
+                class="card-img-top"
+                alt="Конвертер в двухцветный трафарет"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool6Title">
+                  Конвертер в двухцветный трафарет
+                </h5>
+                <p class="card-text lang-tool6Text">
+                  Преобразуйте изображения в стильные двухцветные трафареты,
+                  идеально подходящие для печати и создания оригинальных
+                  дизайнерских проектов.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Конвертер фотографии в рисунок точками -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/points/points.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-6.jpg"
+                class="card-img-top"
+                alt="Конвертер фотографии в рисунок точками"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool7Title">
+                  Конвертер фотографии в рисунок точками
+                </h5>
+                <p class="card-text lang-tool7Text">
+                  Превратите фотографию в произведение искусства, составленное
+                  из множества точек, для создания уникального визуального
+                  эффекта.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор QR-кода -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/QR‑Code/QR‑Code.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-7.jpg"
+                class="card-img-top"
+                alt="Генератор QR-кода"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool8Title">Генератор QR-кода</h5>
+                <p class="card-text lang-tool8Text">
+                  Создавайте QR-коды для быстрого обмена ссылками, контактами и
+                  другой важной информацией.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Генератор ASCII-арта -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/ASCII/ASCII.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-8.jpg"
+                class="card-img-top"
+                alt="Генератор ASCII-арта"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool9Title">Генератор ASCII-арта</h5>
+                <p class="card-text lang-tool9Text">
+                  Преобразуйте изображения и текст в уникальное ASCII-искусство
+                  для создания оригинального визуального стиля.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Выделение объектов из фона -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <a
+            href="/remove-bg/remove-bg.html"
+            style="text-decoration: none; color: inherit"
+          >
+            <div class="card h-100">
+              <img
+                src="/img/img_wb/Без имени-9.jpg"
+                class="card-img-top"
+                alt="Выделение объектов из фона"
+              />
+              <div class="card-body">
+                <h5 class="card-title lang-tool10Title">
+                  Выделение объектов из фона
+                </h5>
+                <p class="card-text lang-tool10Text">
+                  Автоматически разделите изображение со стикерами, удалите фон
+                  и сохраните каждый элемент как отдельное изображение для
+                  дальнейшей работы.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Modal для ASCII Art Generator -->
+    <div
+      class="modal fade"
+      id="faqModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="faqModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title lang-faqModalTitle" id="faqModalLabel">
+              FAQ - Генератор ASCII-арта
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Закрыть"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="lang-faqModalBodyText">
+              Данный инструмент преобразует изображения и текст в ASCII-арт.
+            </p>
+            <ul>
+              <li class="lang-faqItem1">
+                <strong class="lang-faqQuestion1">Что такое ASCII-арт?</strong>
+                <span class="lang-faqAnswer1">
+                  Это техника представления изображения с помощью символов
+                  ASCII.
+                </span>
+              </li>
+              <li class="lang-faqItem2">
+                <strong class="lang-faqQuestion2"
+                  >Как настроить набор символов?</strong
+                >
+                <span class="lang-faqAnswer2">
+                  Вы можете выбрать один из предустановленных наборов или ввести
+                  свои символы.
+                </span>
+              </li>
+              <li class="lang-faqItem3">
+                <strong class="lang-faqQuestion3"
+                  >Как улучшить качество результата?</strong
+                >
+                <span class="lang-faqAnswer3">
+                  Попробуйте изменить разрешение и параметры преобразования для
+                  оптимального эффекта.
+                </span>
+              </li>
+              <li class="lang-faqItem4">
+                <strong class="lang-faqQuestion4"
+                  >Как сохранить результат?</strong
+                >
+                <span class="lang-faqAnswer4">
+                  Полученный ASCII-арт можно скопировать или сохранить в
+                  текстовый файл.
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary lang-closeButton"
+              data-dismiss="modal"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-4">
+      <div class="container text-center">
+        <p class="mb-0 lang-footerText">
+          &copy; 2025 Генератор CSS-градиентов. Все права защищены.
+        </p>
+      </div>
+    </footer>
+    <!-- Bootstrap JS и зависимости -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Пользовательский JS -->
+    <script src="ASCII.js"></script>
+    <script>
+      // Функция для определения системного языка
+      function detectSystemLanguage() {
+        const lang = navigator.language || navigator.userLanguage;
+        const lowerLang = lang.toLowerCase();
+        if (lowerLang.startsWith("ru")) {
+          return "ru";
+        } else if (lowerLang.startsWith("de")) {
+          return "de";
+        } else if (lowerLang.startsWith("it")) {
+          return "it";
+        } else if (lowerLang.startsWith("tr")) {
+          return "tr";
+        } else if (lowerLang.startsWith("es")) {
+          return "es";
+        } else if (lowerLang.startsWith("pl")) {
+          return "pl";
+        } else if (lowerLang.startsWith("fr")) {
+          return "fr";
+        } else if (lowerLang.startsWith("uk") || lowerLang.startsWith("ukr")) {
+          return "uk";
+        } else {
+          return "en";
+        }
+      }
+
+      // Получаем выбранный язык из localStorage или определяем по умолчанию
+      let currentLang = localStorage.getItem("lang") || detectSystemLanguage();
+      localStorage.setItem("lang", currentLang);
+
+      // Устанавливаем значение переключателей языка (если их несколько)
+      const langSwitchers = document.querySelectorAll(
+        "#langSwitcher, #langSwitcherBottom"
+      );
+      langSwitchers.forEach((switcher) => {
+        switcher.value = currentLang;
+        switcher.addEventListener("change", function () {
+          localStorage.setItem("lang", this.value);
+          currentLang = this.value;
+          applyTranslations(this.value);
+          // Обновляем все переключатели
+          langSwitchers.forEach((s) => (s.value = this.value));
+        });
+      });
+
+      // Функция для применения переводов из JSON ко всем элементам по классам
+      function applyTranslations(lang) {
+        fetch("../lang.json")
+          .then((response) => response.json())
+          .then((data) => {
+            const translations = data[lang].ASCII;
+            // Проходим по всем ключам перевода
+            Object.keys(translations).forEach((key) => {
+              // Ищем элементы, у которых есть класс вида .lang-ключ
+              const elements = document.querySelectorAll(".lang-" + key);
+              elements.forEach((el) => {
+                // Если элемент имеет атрибут placeholder, обновляем его, иначе меняем текстовое содержимое
+                if (el.hasAttribute("placeholder")) {
+                  el.setAttribute("placeholder", translations[key]);
+                } else {
+                  el.textContent = translations[key];
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error("Ошибка загрузки переводов:", error);
+          });
+      }
+
+      // Применяем переводы при загрузке страницы
+      document.addEventListener("DOMContentLoaded", function () {
+        applyTranslations(currentLang);
+      });
+    </script>
+  </body>
+</html>

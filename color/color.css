@@ -1,0 +1,232 @@
+/* Определение CSS-переменных для тем */
+:root {
+  --bg-color: #ffffff; /* Светлая тема: фон страницы */
+  --block-bg-color: #f5f5f5; /* Светлая тема: фон блоков/элементов */
+  --accent-color: #3498db; /* Светлая тема: акцентный цвет */
+  --text-color: #333333; /* Светлая тема: основной текст */
+  --border-color: #ddd;
+  --border-radius: 5px;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Переопределения для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --block-bg-color: #1e1e1e;
+  --accent-color: #e74c3c;
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: sans-serif;
+  margin: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Стили для карточек и блоков (используем Bootstrap с нашими переменными) */
+.card {
+  background-color: var(--block-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Стили для элементов управления */
+input[type="color"] {
+  width: 60px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Стили для блока с информацией о цвете */
+.color-info input {
+  width: 130px;
+  margin-right: 10px;
+}
+
+/* Таблица с оттенками */
+table {
+  border-collapse: collapse;
+  margin-top: 10px;
+  width: 100%;
+}
+td {
+  border: 1px solid var(--border-color);
+  width: 100px;
+  height: 50px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: default;
+  background-color: transparent;
+}
+td:hover {
+  transform: scale(2);
+  z-index: 2;
+}
+
+/* Стили для информации внутри ячеек */
+.cell-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 10px;
+  color: #fff;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+td:hover .cell-info {
+  opacity: 1;
+}
+
+/* filter.css */
+
+/* Определение CSS-переменных для светлой темы */
+:root {
+  --bg-color: #ffffff; /* Фон страницы */
+  --container-bg: #f5f5f5; /* Фон контейнеров и блоков */
+  --accent-color: #3498db; /* Акцентный цвет */
+  --accent-hover: #2980b9; /* Акцентный цвет при наведении */
+  --text-color: #333333; /* Основной текст */
+  --border-color: #ddd; /* Цвет границ */
+  --border-radius: 5px; /* Скругление углов */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Переопределения для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --accent-color: #e74c3c;
+  --accent-hover: #c0392b;
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container,
+.btn,
+header,
+footer {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+.header-text {
+  color: var(--accent-color);
+}
+#themeToggle {
+  color: var(--text-color);
+  border-color: var(--accent-color);
+}
+#themeToggle:hover {
+  background-color: var(--accent-color);
+}
+footer {
+  color: var(--text-color);
+}
+.btn-danger {
+  background-color: var(--accent-color) !important;
+
+  color: #fff !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: var(--accent-hover) !important;
+
+  color: var(--text-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--container-bg) !important;
+}
+
+.dropdown-item {
+  color: var(--text-color) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+
+.description-block {
+  margin: 20px 0 20px 0;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.description-title {
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 16px;
+}
+
+.card {
+  background-color: var(--block-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-title {
+  color: var(--accent-color);
+}
+.card-text {
+  color: var(--text-color);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.top-text {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+.modal-content {
+  color: var(--text-color);
+  background-color: var(--bg-color) !important;
+}

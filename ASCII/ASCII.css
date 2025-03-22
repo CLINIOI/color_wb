@@ -1,0 +1,257 @@
+/* Определение CSS-переменных для тем */
+:root {
+  --bg-color: #ffffff; /* Светлая тема: фон */
+  --block-bg-color: #f5f5f5; /* Светлая тема: фон блоков */
+  --accent-color: #3498db; /* Светлая тема: акцентный цвет */
+  --text-color: #333333; /* Светлая тема: основной текст */
+  --border-color: #ddd;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --border-radius: 5px;
+}
+
+/* Переопределения для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212; /* Тёмная тема: фон */
+  --block-bg-color: #1e1e1e; /* Тёмная тема: фон блоков */
+  --accent-color: #e74c3c; /* Тёмная тема: акцентный цвет */
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Стили для навигационной панели */
+.navbar {
+  background-color: var(--block-bg-color);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Стили для секций */
+.section {
+  background-color: var(--block-bg-color);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Стили для области перетаскивания */
+#dropZone {
+  border: 2px dashed var(--border-color);
+  padding: 20px;
+  text-align: center;
+  margin-top: 10px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+#dropZone.hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* Стили для элементов управления формами */
+input[type="range"].custom-range {
+  width: 100%;
+}
+
+/* Стили для кнопок */
+
+/* Стили для элемента <pre> */
+pre {
+  background-color: #222;
+  color: #eee;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Адаптивность для предпросмотра изображения */
+#imagePreview {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Стили для групп ввода */
+.input-group .form-control {
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+.input-group .btn {
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+/* Дополнительное оформление для кнопки переключения темы */
+#themeToggle {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Адаптивные настройки */
+@media (max-width: 576px) {
+  .section {
+    padding: 15px;
+  }
+  .navbar .navbar-brand {
+    font-size: 1.2rem;
+  }
+}
+/* filter.css */
+
+/* Определение CSS-переменных для светлой темы */
+:root {
+  --bg-color: #ffffff; /* Фон страницы */
+  --container-bg: #f5f5f5; /* Фон контейнеров и блоков */
+  --accent-color: #3498db; /* Акцентный цвет */
+  --accent-hover: #2980b9; /* Акцентный цвет при наведении */
+  --text-color: #333333; /* Основной текст */
+  --border-color: #ddd; /* Цвет границ */
+  --border-radius: 5px; /* Скругление углов */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Переопределения для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --accent-color: #e74c3c;
+  --accent-hover: #c0392b;
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container,
+.btn,
+header,
+footer {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+.header-text {
+  color: var(--accent-color);
+}
+#themeToggle {
+  color: var(--text-color);
+  border-color: var(--accent-color);
+}
+#themeToggle:hover {
+  background-color: var(--accent-color);
+}
+footer {
+  color: var(--text-color);
+}
+.btn-danger {
+  background-color: var(--accent-color) !important;
+
+  color: #fff !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: var(--accent-hover) !important;
+
+  color: var(--text-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--container-bg) !important;
+}
+
+.dropdown-item {
+  color: var(--text-color) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+#asciiResult {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+.no-act {
+  display: none;
+}
+
+.description-block {
+  margin: 20px 0 20px 0;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.description-title {
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 16px;
+}
+.card {
+  background-color: var(--block-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-title {
+  color: var(--accent-color);
+}
+.card-text {
+  color: var(--text-color);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.top-text {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+pre {
+  display: block;
+  font-size: 7px;
+  color: #212529;
+}
+.modal-content {
+  color: var(--text-color);
+  background-color: var(--bg-color) !important;
+}

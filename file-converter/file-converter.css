@@ -1,0 +1,242 @@
+/* Определение CSS-переменных для светлой темы */
+:root {
+  --bg-color: #ffffff; /* Фон страницы */
+  --block-bg-color: #f5f5f5; /* Фон блоков/элементов */
+  --accent-color: #3498db; /* Акцентный цвет */
+  --text-color: #333333; /* Основной текст */
+  --border-color: #ddd; /* Цвет границ */
+  --border-radius: 5px; /* Скругление углов */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Переопределение для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --block-bg-color: #1e1e1e;
+  --accent-color: #e74c3c;
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+
+/* Глобальные стили */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: var(--bg-color);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+/* Навигационная панель */
+.navbar {
+  background-color: var(--block-bg-color) !important;
+  border-bottom: 1px solid var(--border-color);
+}
+.navbar .navbar-brand {
+  color: var(--accent-color) !important;
+  font-weight: bold;
+}
+.navbar .btn {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* Заголовок и описание */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+p.text-center {
+  text-align: center;
+}
+
+/* Область перетаскивания файлов */
+.drop-area {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+.drop-area.hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* Стили для списка файлов (записей) */
+.file-entry {
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: var(--border-radius);
+  background-color: var(--block-bg-color);
+}
+
+/* Стили для ссылок скачивания */
+.download-link {
+  display: block;
+  margin-top: 10px;
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+/* Адаптивные настройки */
+@media (max-width: 576px) {
+  .container {
+    padding: 10px;
+  }
+  .drop-area {
+    padding: 15px;
+  }
+}
+/* filter.css */
+
+/* Определение CSS-переменных для светлой темы */
+:root {
+  --bg-color: #ffffff; /* Фон страницы */
+  --container-bg: #f5f5f5; /* Фон контейнеров и блоков */
+  --accent-color: #3498db; /* Акцентный цвет */
+  --accent-hover: #2980b9; /* Акцентный цвет при наведении */
+  --text-color: #333333; /* Основной текст */
+  --border-color: #ddd; /* Цвет границ */
+  --border-radius: 5px; /* Скругление углов */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Переопределения для тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --accent-color: #e74c3c;
+  --accent-hover: #c0392b;
+  --text-color: #e0e0e0;
+  --border-color: #444;
+}
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container,
+.btn,
+header,
+footer {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Глобальные стили */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+.header-text {
+  color: var(--accent-color);
+}
+#themeToggle {
+  color: var(--text-color);
+  border-color: var(--accent-color);
+}
+#themeToggle:hover {
+  background-color: var(--accent-color);
+}
+footer {
+  color: var(--text-color);
+}
+.btn-danger {
+  background-color: var(--accent-color) !important;
+
+  color: #fff !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: var(--accent-hover) !important;
+
+  color: var(--text-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--container-bg) !important;
+}
+
+.dropdown-item {
+  color: var(--text-color) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+
+.description-block {
+  margin: 20px 0 20px 0;
+  background-color: var(--container-bg);
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.description-title {
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 16px;
+}
+.card-body {
+  background-color: var(--block-bg-color);
+  border-color: var(--border-color);
+}
+
+.card {
+  background-color: var(--block-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-title {
+  color: var(--accent-color);
+}
+.card-text {
+  color: var(--text-color);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.top-text {
+  color: var(--accent-color);
+  font-weight: bold;
+}
