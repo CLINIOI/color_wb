@@ -21,7 +21,7 @@ body.dark-theme {
 /* Глобальные стили */
 body {
   font-family: Arial, sans-serif;
-  margin: 20px;
+
   background-color: var(--page-bg);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
